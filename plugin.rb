@@ -7,6 +7,5 @@
 add_admin_route 'ticketing.title', 'ticketing'
 
 Discourse::Application.routes.append do
-  get '/admin/plugins/ticketing' => 'admin/plugins#index', constraints: StaffConstraint.new
+  get '/admin/ticketing' => 'admin/plugins#index', constraints: StaffConstraint.new
 end
-
