@@ -1,59 +1,95 @@
 {{#if showDashboard}}
-  <div class="section-columns">
-    <div class="section-column">
-      <div class="dashboard-table activity-metrics">
-        {{#conditional-loading-section isLoading=isLoading title=(i18n "admin.dashboard.activity_metrics")}}
-          <div class="table-title">
-            <h3>{{i18n "admin.dashboard.activity_metrics"}}</h3>
-          </div>
+  {{#conditional-loading-spinner condition=refreshing}}
+    <table class='table users-list'>
+      <thead>
+        {{#if showApproval}}
+          <th>{{input type="checkbox" checked=selectAll}}</th>
+        {{/if}}
+        <th>&nbsp;</th>
+        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.title'}}</th>
+        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.status'}}</th>
+        <!-- {{admin-directory-toggle field="seen" i18nKey='last_seen' order=order ascending=ascending}} -->
+        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.priority'}}</th>
+        <!-- {{admin-directory-toggle field="seen" i18nKey='last_seen' order=order ascending=ascending}} -->
+        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.reason'}}</th>
+        <!-- {{admin-directory-toggle field="created" i18nKey="created" order=order ascending=ascending}} -->
+        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.due_date'}}</th>
+        <!-- {{admin-directory-toggle field="read_time" i18nKey="admin.user.time_read" order=order ascending=ascending}} -->
+        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.people'}}</th>
+        <!-- {{admin-directory-toggle field="read_time" i18nKey="admin.user.time_read" order=order ascending=ascending}} -->
+        {{#if showApproval}}
+          <th>{{i18n 'admin.users.approved'}}</th>
+        {{/if}}
+        <th>&nbsp;</th>
+      </thead>
+      <tbody>
+        {{#each model as |user|}}
+          <tr class="user {{user.selected}} {{unless user.active 'not-activated'}}">
+            {{#if showApproval}}
+            <td>
+              {{#if user.can_approve}}
+                {{input type="checkbox" checked=user.selected}}
+              {{/if}}
+            </td>
+            {{/if}}
+            <td>
+              <a href="{{unbound user.path}}" data-user-card="{{unbound user.username}}">
+                {{avatar user imageSize="small"}}
+              </a>
+            </td>
+            <td class="username">
+              {{#link-to 'adminUser' user}}{{unbound user.username}}{{/link-to}}
+              {{#if user.staged}}
+                {{d-icon "envelope-o" title="user.staged" }}
+              {{/if}}
+            </td>
+            <td class='email'>
+              {{unbound user.email}}
+            </td>
+            <td>
+              {{{format-duration user.last_emailed_age}}}
+            </td>
+            <td>
+              {{{format-duration user.last_seen_age}}}
+            </td>
+            <td>
+              {{number user.topics_entered}}
+            </td>
+            <td>
+              {{number user.posts_read_count}}
+            </td>
+            <td>
+              {{{format-duration user.time_read}}}
+            </td>
 
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>{{i18n 'admin.dashboard.reports.today'}}</th>
-                  <th>{{i18n 'admin.dashboard.reports.yesterday'}}</th>
-                  <th>{{i18n 'admin.dashboard.reports.last_7_days'}}</th>
-                  <th>{{i18n 'admin.dashboard.reports.last_30_days'}}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {{#each reports as |report|}}
-                  {{admin-report-counts report=report allTime=false}}
-                {{/each}}
-              </tbody>
-            </table>
-          </div>
-        {{/conditional-loading-section}}
-      </div>
-      {{#conditional-loading-section isLoading=isLoading title=(i18n "admin.dashboard.backups")}}
+            <td>
+              {{{format-duration user.created_at_age}}}
+            </td>
 
-      {{/conditional-loading-section}}
-    </div>
-
-    <div class="section-column">
-      <div class="top-referred-topics">
-        {{#dashboard-table
-            dataSourceNames="top_referred_topics"
-            lastRefreshedAt=lastRefreshedAt
-            limit=8
-            as |context|}}
-          {{#each context.report.data as |data|}}
-            <tr>
-              <td class='left'>
-                <a href="{{data.topic_url}}">
-                  {{data.topic_title}}
-                </a>
-              </td>
+            {{#if showApproval}}
               <td>
-                {{data.num_clicks}}
+                {{#if user.approved}}
+                  {{i18n 'yes_value'}}
+                {{else}}
+                  {{i18n 'no_value'}}
+                {{/if}}
               </td>
-            </tr>
-          {{/each}}
-        {{/dashboard-table}}
-      </div>
-    </div>
-  </div>
+            {{/if}}
+            <td>
+              {{#if user.admin}}
+                {{d-icon "shield" title="admin.title" }}
+              {{/if}}
+              {{#if user.moderator}}
+                {{d-icon "shield" title="admin.moderator" }}
+              {{/if}}
 
+              {{#if user.second_factor_enabled}}
+                {{d-icon "lock" title="admin.user.second_factor_enabled" }}
+              {{/if}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/conditional-loading-spinner}}
 {{/if}}
