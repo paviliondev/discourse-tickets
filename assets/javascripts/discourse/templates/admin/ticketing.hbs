@@ -11,14 +11,7 @@
       </thead>
       <tbody>
         {{#each model as |ticket|}}
-        <tr>
-          <td>{{ticket.title}}</td>
-          <td>{{ticket.status}}</td>
-          <td>{{ticket.priority}}</td>
-          <td>{{ticket.reason}}</td>
-          <td>{{ticket.dateDue}}</td>
-          <td>{{ticket.people}}</td>
-        </tr>
+          {{ticketing-dashboard-row ticket=ticket}}
         {{/each}}
       </tbody>
     </table>
