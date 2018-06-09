@@ -1,7 +1,6 @@
 en:
   js:
-    ticketing:
-      title: "Discourse Ticketing"
-    topics:
-      create_ticket_label: "Create Ticket"
-      create_ticket_help: "Convert topic to ticket and set its priority, status, and assignment."
+    discourse_ticketing:
+      topics:
+        create_ticket_label: "Create Ticket"
+        create_ticket_help: "Convert topic to ticket and set its priority, status, and assignment."
