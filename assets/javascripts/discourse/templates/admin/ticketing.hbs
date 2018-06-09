@@ -2,92 +2,23 @@
   {{#conditional-loading-spinner condition=refreshing}}
     <table class='table users-list'>
       <thead>
-        {{#if showApproval}}
-          <th>{{input type="checkbox" checked=selectAll}}</th>
-        {{/if}}
-        <th>&nbsp;</th>
-        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.title'}}</th>
-        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.status'}}</th>
-        <!-- {{admin-directory-toggle field="seen" i18nKey='last_seen' order=order ascending=ascending}} -->
-        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.priority'}}</th>
-        <!-- {{admin-directory-toggle field="seen" i18nKey='last_seen' order=order ascending=ascending}} -->
-        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.reason'}}</th>
-        <!-- {{admin-directory-toggle field="created" i18nKey="created" order=order ascending=ascending}} -->
-        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.due_date'}}</th>
-        <!-- {{admin-directory-toggle field="read_time" i18nKey="admin.user.time_read" order=order ascending=ascending}} -->
-        <th>{{i18n 'discourse_ticketing.dashboard_table.headings.people'}}</th>
-        <!-- {{admin-directory-toggle field="read_time" i18nKey="admin.user.time_read" order=order ascending=ascending}} -->
-        {{#if showApproval}}
-          <th>{{i18n 'admin.users.approved'}}</th>
-        {{/if}}
-        <th>&nbsp;</th>
+        {{admin-directory-toggle field="title" i18nKey='discourse_ticketing.dashboard_table.headings.title' order=order ascending=ascending}}
+        {{admin-directory-toggle field="status" i18nKey='discourse_ticketing.dashboard_table.headings.status' order=order ascending=ascending}}
+        {{admin-directory-toggle field="priority" i18nKey='discourse_ticketing.dashboard_table.headings.priority' order=order ascending=ascending}}
+        {{admin-directory-toggle field="reason" i18nKey="discourse_ticketing.dashboard_table.headings.reason" order=order ascending=ascending}}
+        {{admin-directory-toggle field="dueDate" i18nKey="discourse_ticketing.dashboard_table.headings.due_date" order=order ascending=ascending}}
+        {{admin-directory-toggle field="people" i18nKey="discourse_ticketing.dashboard_table.headings.people" order=order ascending=ascending}}
       </thead>
       <tbody>
-        {{#each model as |user|}}
-          <tr class="user {{user.selected}} {{unless user.active 'not-activated'}}">
-            {{#if showApproval}}
-            <td>
-              {{#if user.can_approve}}
-                {{input type="checkbox" checked=user.selected}}
-              {{/if}}
-            </td>
-            {{/if}}
-            <td>
-              <a href="{{unbound user.path}}" data-user-card="{{unbound user.username}}">
-                {{avatar user imageSize="small"}}
-              </a>
-            </td>
-            <td class="username">
-              {{#link-to 'adminUser' user}}{{unbound user.username}}{{/link-to}}
-              {{#if user.staged}}
-                {{d-icon "envelope-o" title="user.staged" }}
-              {{/if}}
-            </td>
-            <td class='email'>
-              {{unbound user.email}}
-            </td>
-            <td>
-              {{{format-duration user.last_emailed_age}}}
-            </td>
-            <td>
-              {{{format-duration user.last_seen_age}}}
-            </td>
-            <td>
-              {{number user.topics_entered}}
-            </td>
-            <td>
-              {{number user.posts_read_count}}
-            </td>
-            <td>
-              {{{format-duration user.time_read}}}
-            </td>
-
-            <td>
-              {{{format-duration user.created_at_age}}}
-            </td>
-
-            {{#if showApproval}}
-              <td>
-                {{#if user.approved}}
-                  {{i18n 'yes_value'}}
-                {{else}}
-                  {{i18n 'no_value'}}
-                {{/if}}
-              </td>
-            {{/if}}
-            <td>
-              {{#if user.admin}}
-                {{d-icon "shield" title="admin.title" }}
-              {{/if}}
-              {{#if user.moderator}}
-                {{d-icon "shield" title="admin.moderator" }}
-              {{/if}}
-
-              {{#if user.second_factor_enabled}}
-                {{d-icon "lock" title="admin.user.second_factor_enabled" }}
-              {{/if}}
-            </td>
-          </tr>
+        {{#each model as |ticket|}}
+        <tr>
+          <td>{{ticket.title}}</td>
+          <td>{{ticket.status}}</td>
+          <td>{{ticket.priority}}</td>
+          <td>{{ticket.reason}}</td>
+          <td>{{ticket.dueDate}}</td>
+          <td>{{ticket.people}}</td>
+        </tr>
         {{/each}}
       </tbody>
     </table>
