@@ -5,3 +5,11 @@ en:
       topics:
         create_ticket_label: "Create Ticket"
         create_ticket_help: "Convert topic to ticket and set its priority, status, and assignment."
+      dashboard_table:
+        headings:
+            title: "Title"
+            status: "Status"
+            priority: "Priority"
+            reason: "Reason"
+            due_date: "Due Date"
+            people: "People"
