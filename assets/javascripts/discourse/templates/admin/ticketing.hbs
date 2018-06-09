@@ -2,9 +2,6 @@
   {{#conditional-loading-spinner condition=refreshing}}
     <table class='table users-list'>
       <thead>
-        {{#if showApproval}}
-          <th>{{input type="checkbox" checked=selectAll}}</th>
-        {{/if}}
         <th>&nbsp;</th>
         <th>{{i18n 'discourse_ticketing.dashboard_table.headings.title'}}</th>
         <th>{{i18n 'discourse_ticketing.dashboard_table.headings.status'}}</th>
@@ -17,21 +14,11 @@
         <!-- {{admin-directory-toggle field="read_time" i18nKey="admin.user.time_read" order=order ascending=ascending}} -->
         <th>{{i18n 'discourse_ticketing.dashboard_table.headings.people'}}</th>
         <!-- {{admin-directory-toggle field="read_time" i18nKey="admin.user.time_read" order=order ascending=ascending}} -->
-        {{#if showApproval}}
-          <th>{{i18n 'admin.users.approved'}}</th>
-        {{/if}}
         <th>&nbsp;</th>
       </thead>
       <tbody>
         {{#each model as |user|}}
           <tr class="user {{user.selected}} {{unless user.active 'not-activated'}}">
-            {{#if showApproval}}
-            <td>
-              {{#if user.can_approve}}
-                {{input type="checkbox" checked=user.selected}}
-              {{/if}}
-            </td>
-            {{/if}}
             <td>
               <a href="{{unbound user.path}}" data-user-card="{{unbound user.username}}">
                 {{avatar user imageSize="small"}}
@@ -65,16 +52,6 @@
             <td>
               {{{format-duration user.created_at_age}}}
             </td>
-
-            {{#if showApproval}}
-              <td>
-                {{#if user.approved}}
-                  {{i18n 'yes_value'}}
-                {{else}}
-                  {{i18n 'no_value'}}
-                {{/if}}
-              </td>
-            {{/if}}
             <td>
               {{#if user.admin}}
                 {{d-icon "shield" title="admin.title" }}
