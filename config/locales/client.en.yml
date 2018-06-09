@@ -1,7 +1,7 @@
 en:
   js:
     discourse_ticketing:
-      title: Discourse Ticketing
+      nav_button_title: Discourse Ticketing
       topics:
         create_ticket_label: "Create Ticket"
         create_ticket_help: "Convert topic to ticket and set its priority, status, and assignment."
