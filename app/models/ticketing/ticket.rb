@@ -52,6 +52,7 @@ module Ticketing
     end
 
     def date_due
+      return unless priority
       created_at + TagGroupConfiguration.sla_for_priority(priority)
     end
 
