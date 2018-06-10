@@ -1,11 +1,30 @@
 module Ticketing
   class TagGroupConfiguration
     include Singleton
-  
+    
+    def self.priority_order
+      %w(immediate urgent high medium low)
+    end
+
+    def self.status_order
+      %w(new triaging underway waiting resolved backburner)
+    end
+
+    def self.ordered_tag_names_for(tag_group_name)
+      case tag_group_name
+      when :priority
+        priority_order
+      when :status
+        status_order
+      else
+        raise NotImplementedError
+      end
+    end
+
     def to_hash
       {
-        priority_tags: serialized_tag_group('priority', %w(immediate urgent high medium low)),
-        status_tags: serialized_tag_group('status', %w(new triaging underway waiting resolved backburner)),
+        priority_tags: serialized_tag_group('priority', self.class.priority_order),
+        status_tags: serialized_tag_group('status', self.class.status_order),
         reason_tags: serialized_tag_group('reason')
       }
     end
