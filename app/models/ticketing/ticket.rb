@@ -1,11 +1,41 @@
 module Ticketing
   class Ticket
-    def self.find(id)
-      new.send :a_ticket_blob
+    def self.find(key)
+      type, id = key.split('-')
+      ticket_base = case type
+               when 'topic'
+                 Topic.find(id)
+               when 'post'
+                 Post.find(id)
+               else
+                 raise NotImplementedError
+               end
+      new(ticket_base)
     end
 
     def self.all
       [new.send(:a_ticket_blob)]
+    end
+
+    attr_accessor :_topic_or_post
+    delegate :id, :created_at, :title, to: :_topic_or_post
+
+    def initialize(topic_or_post)
+      self._topic_or_post = topic_or_post
+    end
+
+    def to_hash
+      {
+        id: id,
+        topic_or_post: 'topic',
+        dateCreated: created_at,
+        title: title,
+        href: Engine.routes.url_helpers.ticket_url(self, host: 'example.com')
+      }.reverse_merge(a_ticket_blob)
+    end
+
+    def to_param
+      "topic-#{id}"
     end
 
     private def a_ticket_blob
@@ -96,7 +126,7 @@ module Ticketing
             "topics_entered":0,
             "post_count":0
           }
-        ],        
+        ],
         "href": Engine.routes.url_helpers.ticket_url(host: 'example.com', id: 'post-1234', format: 'json')
        }
     end
