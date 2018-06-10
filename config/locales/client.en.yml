@@ -15,5 +15,5 @@ en:
             people: "People"
   site_settings:
     discourse_ticketing_priority_tags: "Available ticket priorities."
-    discourse_ticketing_status_tags: "Available ticket statuses"
-    discourse_ticketing_reasons_tags: "Available ticket reasons"
+    discourse_ticketing_status_tags: "Available ticket statuses."
+    discourse_ticketing_reasons_tags: "Available ticket reasons."
