@@ -1,10 +1,12 @@
-<label for="{{field}}-options">{{ title }}</label>
-<select id="{{field}}-options" onChange={{action onChange value="target.value" title="title"}}>
-  {{#each list as |option|}}
-    {{#if key}}
-      <option value="{{get option key}}">{{get option key}}</option>
-    {{else}}
-      <option value="{{option.id}}">{{option.id}}</option>
-    {{/if}}
-  {{/each}}
-</select>
+<div class="ticketing-dropdowns">
+  <label for="{{field}}-options">{{ title }}</label>
+  <select id="{{field}}-options" onChange={{action onChange value="target.value" title="title"}}>
+    {{#each list as |option|}}
+      {{#if key}}
+        <option value="{{get option key}}">{{get option key}}</option>
+      {{else}}
+        <option value="{{option.id}}">{{option.id}}</option>
+      {{/if}}
+    {{/each}}
+  </select>
+</div>
