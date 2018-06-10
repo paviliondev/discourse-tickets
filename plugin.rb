@@ -6,11 +6,7 @@
 
 require_relative './lib/ticketing'
 
-add_admin_route 'discourse_ticketing.nav_button_title', 'ticketing'
-
 Discourse::Application.routes.append do
   get '/admin/ticketing' => 'admin/plugins#index', constraints: StaffConstraint.new
-  get '/admin/plugins/ticketing' => 'admin/plugins#index', constraints: StaffConstraint.new
-
   mount Ticketing::Engine, at: '/ticketing', constraints: StaffConstraint.new
 end
