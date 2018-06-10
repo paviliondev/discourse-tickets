@@ -5,8 +5,7 @@ import Topic from 'discourse/models/topic';
 export default Ember.Component.extend({
   actions: {
     convertToTicket() {
-      var current_state = this.get('create_ticket_block');
-      this.set('create_ticket_block', !current_state);
+      this._toggle();
 
       this.set('list-priority', this.priority());
       this.set('list-status', this.status());
@@ -53,10 +52,12 @@ export default Ember.Component.extend({
         //   this.set('editingTopic', false);
         // })
         .catch(popupAjaxError);
+
+      this._toggle();
     },
 
     cancel() {
-      console.log('qwer');
+      this._toggle();
     },
 
     set_users(event) {
@@ -129,5 +130,10 @@ export default Ember.Component.extend({
     tags.push('status-waiting');
 
     return tags;
+  },
+
+  _toggle() {
+    const current_state = this.get('create_ticket_block');
+    this.set('create_ticket_block', !current_state);
   },
 });
