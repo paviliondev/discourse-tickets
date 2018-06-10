@@ -97,9 +97,9 @@ module Ticketing
           "topicOrPost": 'post',
           "title": "An Uncool Ticket",
           "priority": 'low',
-          "status": 'waiting',
+          "status": 'new',
           "dateCreated": "2018-06-09T15:59:55.725Z",
-          "dateDue": "2018-06-09T15:59:55.725Z",
+          "dateDue": "2018-06-11T15:59:55.725Z",
           "assignee": {
             "id":3,
             "username":"howardm",
