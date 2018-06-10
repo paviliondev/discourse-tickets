@@ -134,11 +134,11 @@ module Ticketing
       def order(attribute, asc_or_desc = :asc)
         case attribute.to_sym
         when :title
-          self.source_relation = source_relation.order(:title, asc_or_desc)
+          self.source_relation = source_relation.order(title: asc_or_desc)
         when :priority
-          self.source_relation = source_relation.order(tag: { tag_order_clause(:priority) => asc_or_desc })
+          self.source_relation = source_relation.order(tags: tag_order_clause(:priority) + [asc_or_desc] )
         when :status
-          self.source_relation = source_relation.order(tag: tag_order_clause(:status), asc_or_desc)
+          self.source_relation = source_relation.order(tags: tag_order_clause(:status) + [asc_or_desc])
         else
           raise NotImplementedError
         end
@@ -175,7 +175,7 @@ module Ticketing
 
       private def base_relation
         # TODO: add or clause for any ticket that is assigned
-        ::Topic.joins(:tags).where(tag: { name: 'ticket' })
+        ::Topic.joins(:tags).where(tags: { name: 'ticket' })
       end
 
       private def collected_class
@@ -183,7 +183,7 @@ module Ticketing
       end
 
       private def tag_order_clause(tag_group_name)
-        ["array_position(?, tags.name)", TagGroupConfiguration.ordered_tag_names_for(tag_group_name)]
+        ["array_position(?, tags.name) ?", TagGroupConfiguration.ordered_tag_names_for(tag_group_name)]
       end
     end
   end
