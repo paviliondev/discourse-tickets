@@ -6,6 +6,9 @@
 
 require_relative './lib/ticketing'
 
+register_asset 'stylesheets/ticketing.scss'
+
+
 Discourse::Application.routes.append do
   get '/admin/ticketing' => 'admin/plugins#index', constraints: StaffConstraint.new
   mount Ticketing::Engine, at: '/ticketing', constraints: StaffConstraint.new
