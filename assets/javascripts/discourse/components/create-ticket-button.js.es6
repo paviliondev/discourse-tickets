@@ -13,9 +13,9 @@ export default Ember.Component.extend({
 
       const topic = this.get('topic');
 
-      this.set(`priority-value`, this.priority()[0]);
-      this.set(`status-value`, this.status()[0]);
-      this.set(`reasons-value`, this.reasons()[0]);
+      this.set(`priority-value`, this.priority()[0].id);
+      this.set(`status-value`, this.status()[0].id);
+      this.set(`reasons-value`, this.reasons()[0].id);
 
       topic.tags.forEach((tag) => {
         const parts = tag.split('-');
@@ -42,9 +42,6 @@ export default Ember.Component.extend({
     },
 
     save() {
-      console.log(this.get('user-value'));
-      console.log(this.get('priority-value'));
-
       Topic.update(this.get('topic'), {tags: this._mergeTags()})
         // .then(() => {
         //   // We roll back on success here because `update` saves the properties to the topic
@@ -125,9 +122,10 @@ export default Ember.Component.extend({
   _mergeTags() {
     const tags = this.get('topic').tags;
 
-    // hard coded for now, merge into branch: pc-hm-move-topic-ticket
     tags.push('ticket');
-    tags.push('status-waiting');
+    tags.push(this.get('priority-value'));
+    tags.push(this.get('status-value'));
+    tags.push(this.get('reasons-value'));
 
     return tags;
   },
