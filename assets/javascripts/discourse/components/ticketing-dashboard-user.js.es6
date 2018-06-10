@@ -2,7 +2,7 @@ import { default as computed } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
   tagName: 'span',
-  className: 'ticket-user',
+  classNames: ['ticket-user'],
 
   @computed('person')
   path(person) {
