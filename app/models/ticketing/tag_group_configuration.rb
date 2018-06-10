@@ -2,6 +2,8 @@ module Ticketing
   class TagGroupConfiguration
     include Singleton
     
+    ### EXTRACT ME TO CONFIG
+
     def self.priority_order
       %w(immediate urgent high medium low)
     end
@@ -9,6 +11,18 @@ module Ticketing
     def self.status_order
       %w(new triaging underway waiting resolved backburner)
     end
+
+    def self.sla_to_priority_map
+      {
+        "immediate": 1.days,
+        "urgent" 3.days,
+        "high": 5.days,
+        "medium": 7.days,
+        "low": 14.days
+      }
+    end
+
+    #### end of EXTRACT ME TO CONFIG
 
     def self.ordered_tag_names_for(tag_group_name)
       case tag_group_name
@@ -19,6 +33,20 @@ module Ticketing
       else
         raise NotImplementedError
       end
+    end
+
+    def self.extract_priority_tag_names_from(tags)
+      priority_tags = ::TagGroup.find_by_name('priority').merge(tags)
+      priority_tags.map { |tag| tag.name.split('-')[1..-1].join('-') }
+    end
+
+    def self.extract_status_tag_names_from(tags)
+      status_tags = ::TagGroup.find_by_name('status').merge(tags)
+      status_tags.map { |tag| tag.name.split('-')[1..-1].join('-') }
+    end
+
+    def self.sla_for_priority(priority_name)
+      sla_to_priority_map[priority_name]
     end
 
     def to_hash

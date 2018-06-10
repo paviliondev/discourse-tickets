@@ -18,7 +18,7 @@ module Ticketing
     end
 
     attr_accessor :_topic_or_post
-    delegate :id, :created_at, :title, to: :_topic_or_post
+    delegate :id, :created_at, :title, :tags, to: :_topic_or_post
 
     def initialize(topic_or_post)
       self._topic_or_post = topic_or_post
@@ -30,12 +30,27 @@ module Ticketing
         topic_or_post: 'topic',
         dateCreated: created_at,
         title: title,
+        priority: priority,
+        status: status,
+        dateDue: date_due, 
         href: Engine.routes.url_helpers.ticket_url(self, host: 'example.com')
       }.reverse_merge(a_ticket_blob)
     end
 
     def to_param
       "topic-#{id}"
+    end
+
+    def priority
+      TagGroupConfiguration.extract_priority_tag_names_from(tags).first
+    end
+
+    def status
+      TagGroupConfiguration.extract_status_tag_names_from(tags).first
+    end
+
+    def date_due
+      created_at + TagGroupConfiguration.sla_for_priority(priority)
     end
 
     private def a_ticket_blob
@@ -155,7 +170,7 @@ module Ticketing
         when :title
           self.source_relation = source_relation.order(:title, asc_or_desc)
         when :priority
-          self.source_relation = source_relation.order(tag: tag_order_clause(:priority), asc_or_desc)
+          self.source_relation = source_relation.order(tag: { tag_order_clause(:priority) => asc_or_desc })
         when :status
           self.source_relation = source_relation.order(tag: tag_order_clause(:status), asc_or_desc)
         else
