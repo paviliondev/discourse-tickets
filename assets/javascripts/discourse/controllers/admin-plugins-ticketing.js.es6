@@ -1,5 +1,2 @@
-export default Ember.Controller.extend({
-  // placeholder
-  ticketingVisible: true,
-});
+export default Ember.Controller.extend();
 
