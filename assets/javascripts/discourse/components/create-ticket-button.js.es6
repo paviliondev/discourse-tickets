@@ -1,5 +1,6 @@
 import { ajax } from 'discourse/lib/ajax';
 import { popupAjaxError } from 'discourse/lib/ajax-error';
+import Topic from 'discourse/models/topic';
 
 export default Ember.Component.extend({
   actions: {
@@ -44,6 +45,14 @@ export default Ember.Component.extend({
     save() {
       console.log(this.get('user-value'));
       console.log(this.get('priority-value'));
+
+      Topic.update(this.get('topic'), {tags: this._mergeTags()})
+        // .then(() => {
+        //   // We roll back on success here because `update` saves the properties to the topic
+        //   this.rollbackBuffer();
+        //   this.set('editingTopic', false);
+        // })
+        .catch(popupAjaxError);
     },
 
     cancel() {
@@ -110,5 +119,15 @@ export default Ember.Component.extend({
       { "id":"reason-username" },
       { "id":"reason-webinar" }
     ];
-  }
+  },
+
+  _mergeTags() {
+    const tags = this.get('topic').tags;
+
+    // hard coded for now, merge into branch: pc-hm-move-topic-ticket
+    tags.push('ticket');
+    tags.push('status-waiting');
+
+    return tags;
+  },
 });
