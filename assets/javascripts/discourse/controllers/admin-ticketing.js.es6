@@ -10,13 +10,34 @@ export default Ember.Controller.extend({
         high: 2,
         normal: 3,
         low: 4
-    }
+    };
+
+    const statusMap = {
+      new: 0,
+      triaging: 1,
+      underway: 2,
+      backburner: 3,
+      waiting: 4,
+      resolved: 5,
+    };
+
     var aValue = 0;
     var bValue = 0;
-    if (orderKey === 'priority') {
+    if (orderKey === 'title') {
+      return (a.title || '').localeCompare((b.title || ''));
+    } else if (orderKey === 'dueDate') {
+      if (a.dateDue && b.dateDue) {
+        return new Date(a.dateDue).getTime() - new Date(b.dateDue).getTime();
+      } else {
+        return 0;
+      }
+    } else if (orderKey === 'priority') {
       aValue = priorityMap[a[orderKey]];
       bValue = priorityMap[b[orderKey]];
-    }
+    } else if (orderKey === 'status') {
+      aValue = statusMap[a[orderKey]];
+      bValue = statusMap[b[orderKey]];     
+    } 
     if (aValue < bValue) {
       return -1;
     }
