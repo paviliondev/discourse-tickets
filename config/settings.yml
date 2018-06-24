@@ -1,0 +1,26 @@
+plugins:
+  discourse_ticketing_priority_tags:
+    default: "immediate|urgent|high|normal|low"
+    choices:
+      - immediate
+      - urgent
+      - high
+      - normal
+      - low
+    client: true
+    type: list
+  discourse_ticketing_status_tags:
+    default: "new|triaging|underway|waiting|backburner|resolved"
+    choices:
+      - new
+      - triaging
+      - underway
+      - waiting
+      - backburner
+      - resolved
+    client: true
+    type: list
+  discourse_ticketing_reasons_tags:
+    default: ""
+    client: true
+    type: list
