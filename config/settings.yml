@@ -9,6 +9,7 @@ plugins:
       - low
     client: true
     type: list
+    allow_any: true
   discourse_ticketing_status_tags:
     default: "new|triaging|underway|waiting|backburner|resolved"
     choices:
@@ -20,7 +21,14 @@ plugins:
       - resolved
     client: true
     type: list
-  discourse_ticketing_reasons_tags:
-    default: ""
+    allow_any: true
+  discourse_ticketing_reason_tags:
+    default: "cancel-account|confirm-email|onboarding|username"
+    choices:
+      - cancel-account
+      - confirm-email
+      - onboarding
+      - username
     client: true
     type: list
+    allow_any: true

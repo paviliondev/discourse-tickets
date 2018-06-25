@@ -2,17 +2,21 @@ en:
   js:
     discourse_ticketing:
       nav_button_title: Discourse Ticketing
-      topics:
-        create_ticket_label: "Create Ticket"
-        create_ticket_help: "Convert topic to ticket and set its priority, status, and assignment."
+      priority: "Priority"
+      status: "Status"
+      reason: "Reason"
+
+      topic:
+        create_ticket:
+          label: "Create Ticket"
+          help: "Convert topic to ticket and set its priority, status, and assignment."
+
       dashboard_table:
         headings:
-            title: "Title"
-            status: "Status"
-            priority: "Priority"
-            reason: "Reason"
-            due_date: "Due Date"
-            people: "People"
+          title: "Title"
+          due_date: "Due Date"
+          people: "People"
+
   site_settings:
     discourse_ticketing_priority_tags: "Available ticket priorities."
     discourse_ticketing_status_tags: "Available ticket statuses."

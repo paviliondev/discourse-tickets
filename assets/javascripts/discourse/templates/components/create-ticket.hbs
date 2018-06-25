@@ -1,0 +1,31 @@
+{{#if createTicketBlock}}
+  <div class="ticket-area">
+    <div class="control-group">
+      <label>{{i18n 'discourse_ticketing.priority'}}</label>
+      {{combo-box content=listPriority
+                  value=priorityValue}}
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'discourse_ticketing.status'}}</label>
+      {{combo-box content=listStatus
+                  value=statusValue}}
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'discourse_ticketing.reason'}}</label>
+      {{combo-box content=listReasons
+                  value=reasonsValue}}
+    </div>
+
+    <div class="control-group">
+      {{d-button action="save" class="btn-primary btn-small submit-edit" icon="check"}}
+      {{d-button action="cancel" class="btn-small cancel-edit" icon="times"}}
+    </div>
+  </div>
+{{else}}
+  {{d-button icon="tag"
+             action="convertToTicket"
+             label="discourse_ticketing.topic.create_ticket.label"
+             title="discourse_ticketing.topic.create_ticket.help"}}
+{{/if}}
