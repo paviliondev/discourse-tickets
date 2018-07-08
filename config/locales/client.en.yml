@@ -1,15 +1,18 @@
 en:
   js:
-    discourse_ticketing:
-      nav_button_title: Discourse Ticketing
+    tickets:
+      nav_button_title: "Tickets"
       priority: "Priority"
       status: "Status"
       reason: "Reason"
 
       topic:
-        create_ticket:
-          label: "Create Ticket"
-          help: "Convert topic to ticket and set its priority, status, and assignment."
+        is_ticket: "Ticket"
+        edit:
+          help: "Edit ticket details."
+
+      colors:
+        label: "Ticket Colors"
 
       dashboard_table:
         headings:
@@ -18,6 +21,6 @@ en:
           people: "People"
 
   site_settings:
-    discourse_ticketing_priority_tags: "Available ticket priorities."
-    discourse_ticketing_status_tags: "Available ticket statuses."
-    discourse_ticketing_reasons_tags: "Available ticket reasons."
+    tickets_priority_tags: "Available ticket priorities."
+    tickets_status_tags: "Available ticket statuses."
+    tickets_reason_tags: "Available ticket reasons."

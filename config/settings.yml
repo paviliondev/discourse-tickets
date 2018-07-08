@@ -1,5 +1,5 @@
 plugins:
-  discourse_ticketing_priority_tags:
+  tickets_priority_tags:
     default: "immediate|urgent|high|normal|low"
     choices:
       - immediate
@@ -10,7 +10,7 @@ plugins:
     client: true
     type: list
     allow_any: true
-  discourse_ticketing_status_tags:
+  tickets_status_tags:
     default: "new|triaging|underway|waiting|backburner|resolved"
     choices:
       - new
@@ -22,7 +22,7 @@ plugins:
     client: true
     type: list
     allow_any: true
-  discourse_ticketing_reason_tags:
+  tickets_reason_tags:
     default: "cancel-account|confirm-email|onboarding|username"
     choices:
       - cancel-account

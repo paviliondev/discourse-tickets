@@ -1,4 +1,5 @@
 import { observes } from 'ember-addons/ember-computed-decorators';
+import { showModal } from 'discourse/lib/show-modal';
 
 export default Ember.Controller.extend({
   showDashboard: true,
@@ -36,8 +37,8 @@ export default Ember.Controller.extend({
       bValue = priorityMap[b[orderKey]];
     } else if (orderKey === 'status') {
       aValue = statusMap[a[orderKey]];
-      bValue = statusMap[b[orderKey]];     
-    } 
+      bValue = statusMap[b[orderKey]];
+    }
     if (aValue < bValue) {
       return -1;
     }
@@ -61,9 +62,14 @@ export default Ember.Controller.extend({
         value = value * -1;
       }
       return value;
-    })
+    });
     // ember won't notice that the array changed if you just sort it in place
     this.set('model', [...tickets]);
+  },
+
+  actions: {
+    openTicketColorsModal() {
+      showModal('ticket-colors');
+    }
   }
 });
-

@@ -1,14 +1,18 @@
-# name: discourse-ticketing
-# about: Ticketing system for Discourse
+# name: discourse-tickets
+# about: Tickets system for Discourse
 # version: 0.1
 # authors:
-# url: https://github.com/angusmcleod/discourse-ticketing
+# url: https://github.com/angusmcleod/discourse-tickets
 
-require_relative './lib/ticketing'
+register_asset 'stylesheets/tickets.scss'
 
-register_asset 'stylesheets/ticketing.scss'
+after_initialize do
+  load File.expand_path('../lib/tickets/engine.rb', __FILE__)
+  load File.expand_path('../lib/tickets/version.rb', __FILE__)
+  load File.expand_path("../lib/tickets.rb", __FILE__)
 
-Discourse::Application.routes.append do
-  get '/admin/ticketing' => 'admin/plugins#index', constraints: StaffConstraint.new
-  mount Ticketing::Engine, at: '/ticketing', constraints: StaffConstraint.new
+  Discourse::Application.routes.append do
+    get '/admin/tickets' => 'admin/plugins#index', constraints: StaffConstraint.new
+    mount Tickets::Engine, at: '/tickets', constraints: StaffConstraint.new
+  end
 end

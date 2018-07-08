@@ -1,0 +1,47 @@
+{{#if canEdit}}
+  <div class="ticket-edit">
+    <div class="control-group">
+      <label>{{i18n 'tickets.topic.is_ticket'}}</label>
+      <div class="controls">
+        {{input type='checkbox' checked=isTicket}}
+      </div>
+    </div>
+    <div class="control-group">
+      <label>{{i18n 'tickets.priority'}}</label>
+      <div class="controls">
+        {{combo-box content=listPriority
+                    value=priorityValue
+                    isDisabled=notTicket}}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'tickets.status'}}</label>
+      <div class="controls">
+        {{combo-box content=listStatus
+                    value=statusValue
+                    isDisabled=notTicket}}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'tickets.reason'}}</label>
+      <div class="controls">
+        {{combo-box content=listReasons
+                    value=reasonsValue
+                    isDisabled=notTicket}}
+      </div>
+    </div>
+
+    {{#if saving}}
+      {{loading-spinner type='small'}}
+    {{else}}
+      <div class="control-group">
+        <div class="controls save">
+          {{d-button action="save" class="btn-primary btn-small submit-edit" icon="check"}}
+          {{d-button action="cancel" class="btn-small cancel-edit" icon="times"}}
+        </div>
+      </div>
+    {{/if}}
+  </div>
+{{/if}}
