@@ -1,0 +1,8 @@
+en:
+  site_settings:
+    errors:
+      tickets_enabled_requires_tagging: "Tagging has to be enabled to enable tickets."
+    tickets_enabled: "Enable tickets on topics? (requires tagging to be enabled)"
+    tickets_priority_tags: "Available ticket priorities."
+    tickets_status_tags: "Available ticket statuses."
+    tickets_reason_tags: "Available ticket reasons."

@@ -65,11 +65,5 @@ export default Ember.Controller.extend({
     });
     // ember won't notice that the array changed if you just sort it in place
     this.set('model', [...tickets]);
-  },
-
-  actions: {
-    openTicketColorsModal() {
-      showModal('ticket-colors');
-    }
   }
 });

@@ -8,19 +8,10 @@ en:
 
       topic:
         is_ticket: "Ticket"
-        edit:
-          help: "Edit ticket details."
-
-      colors:
-        label: "Ticket Colors"
+        select: "Select a {{type}}"
 
       dashboard_table:
         headings:
           title: "Title"
           due_date: "Due Date"
           people: "People"
-
-  site_settings:
-    tickets_priority_tags: "Available ticket priorities."
-    tickets_status_tags: "Available ticket statuses."
-    tickets_reason_tags: "Available ticket reasons."

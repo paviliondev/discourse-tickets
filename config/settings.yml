@@ -1,4 +1,8 @@
 plugins:
+  tickets_enabled:
+    default: false
+    client: true
+    validator: "TicketsEnabledValidator"
   tickets_priority_tags:
     default: "immediate|urgent|high|normal|low"
     choices:

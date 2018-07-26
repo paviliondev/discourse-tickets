@@ -1,5 +1,4 @@
 {{#if showDashboard}}
-  {{d-button action='openTicketColorsModal' label='tickets.colors.label' title='tickets.colors.label'}}
   {{#conditional-loading-spinner condition=refreshing}}
     <table class='table users-list'>
       <thead>
@@ -7,7 +6,7 @@
         {{admin-directory-toggle field="status" i18nKey='tickets.status' order=order ascending=ascending}}
         {{admin-directory-toggle field="priority" i18nKey='tickets.priority' order=order ascending=ascending}}
         {{admin-directory-toggle field="reason" i18nKey="tickets.reason" order=order ascending=ascending}}
-        {{admin-directory-toggle field="dueDate" i18nKey="tickets.dashboard_table.headings.due_date" order=order ascending=ascending}}
+        {{admin-directory-toggle field="due_date" i18nKey="tickets.dashboard_table.headings.due_date" order=order ascending=ascending}}
         {{admin-directory-toggle field="people" i18nKey="tickets.dashboard_table.headings.people" order=order ascending=ascending}}
       </thead>
       <tbody>
