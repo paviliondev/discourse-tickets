@@ -60,7 +60,7 @@ after_initialize do
     end
   end
 
-  require_dependency 'lib/discourse_tagging'
+  require_dependency 'discourse_tagging'
   class << DiscourseTagging
     prepend DiscourseTaggingExtension
   end
