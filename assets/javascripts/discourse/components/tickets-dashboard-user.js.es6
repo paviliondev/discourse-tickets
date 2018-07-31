@@ -1,12 +1,9 @@
+import { userPath } from "discourse/lib/url";
 import { default as computed } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
-  tagName: 'span',
-  classNames: ['ticket-user'],
-
-  @computed('person')
-  path(person) {
-    return `/u/${person.username_lower}`
-  },
+  @computed('user.username')
+  userPath(username) {
+    return userPath(username);
+  }
 });
-

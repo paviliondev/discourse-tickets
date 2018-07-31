@@ -1,7 +1,19 @@
-.topic-ticket {
-  display: flex;
-  align-items: center;
-  padding: 10px;
+.tickets-controls-container-outlet {
+  display: block;
+  width: 100%;
+  margin-bottom: 9px;
+}
+
+.tickets-controls {
+  > .btn {
+    display: block;
+  }
+
+  .ticket-controls {
+    padding-top: 14px;
+    display: flex;
+    align-items: center;
+  }
 
   .control-group {
     margin-right: 15px;
@@ -20,6 +32,28 @@
 
       > .btn {
         margin: 0;
+      }
+    }
+  }
+}
+
+.discourse-tags {
+  .ticket {
+    margin-right: 4px;
+
+    i {
+      margin-right: 2px;
+    }
+
+    span {
+      padding: 0 4px;
+
+      &:not(:first-of-type) {
+        border-left: 1px solid $primary-medium;
+      }
+
+      &:last-of-type {
+        padding-right: 0;
       }
     }
   }

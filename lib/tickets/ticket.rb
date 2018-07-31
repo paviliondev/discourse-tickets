@@ -6,10 +6,5 @@ module Tickets
         WHERE name = 'is_ticket' AND value::boolean IS TRUE)"
       )
     end
-
-    def self.type_tag(tags, type)
-      type_tags = SiteSetting.send("tickets_#{type}_tags").split('|')
-      tags.select { |t| type_tags.include? t }.first
-    end
   end
 end

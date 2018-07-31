@@ -1,0 +1,35 @@
+{{d-button label='tickets.topic.is_ticket'
+           icon=siteSettings.tickets_icon
+           action='toggleIsTicket'
+           class=toggleClasses}}
+
+{{#if topic.is_ticket}}
+  <div class="ticket-controls">
+    <div class="control-group">
+      <label>{{i18n 'tickets.priority'}}</label>
+      <div class="controls">
+        {{combo-box content=priorityList
+                    value=priority
+                    none=priorityNone}}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'tickets.status'}}</label>
+      <div class="controls">
+        {{combo-box content=statusList
+                    value=status
+                    none=statusNone}}
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label>{{i18n 'tickets.reason'}}</label>
+      <div class="controls">
+        {{combo-box content=reasonList
+                    value=reason
+                    none=reasonNone}}
+      </div>
+    </div>
+  </div>
+{{/if}}

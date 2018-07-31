@@ -3,36 +3,6 @@ plugins:
     default: false
     client: true
     validator: "TicketsEnabledValidator"
-  tickets_priority_tags:
-    default: "immediate|urgent|high|normal|low"
-    choices:
-      - immediate
-      - urgent
-      - high
-      - normal
-      - low
+  tickets_icon:
+    default: 'tag'
     client: true
-    type: list
-    allow_any: true
-  tickets_status_tags:
-    default: "new|triaging|underway|waiting|backburner|resolved"
-    choices:
-      - new
-      - triaging
-      - underway
-      - waiting
-      - backburner
-      - resolved
-    client: true
-    type: list
-    allow_any: true
-  tickets_reason_tags:
-    default: "cancel-account|confirm-email|onboarding|username"
-    choices:
-      - cancel-account
-      - confirm-email
-      - onboarding
-      - username
-    client: true
-    type: list
-    allow_any: true

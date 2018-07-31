@@ -1,25 +1,35 @@
-module Tickets
-  class TicketSerializer < ::ApplicationSerializer
-    attributes :title, :status, :priority, :reason
+class Tickets::TicketSerializer < ::ApplicationSerializer
+  attributes :title, :url, :status, :priority, :reason, :assigned
 
-    def title
-      object.title
-    end
+  def title
+    object.title
+  end
 
-    def status
-      Tickets::Ticket.type_tag(tags, 'status')
-    end
+  def url
+    object.url
+  end
 
-    def priority
-      Tickets::Ticket.type_tag(tags, 'priority')
-    end
+  def status
+    ::Tickets::Tag.for_type(tags, ::Tickets::Tag::STATUS)
+  end
 
-    def reason
-      Tickets::Ticket.type_tag(tags, 'reason')
-    end
+  def priority
+    ::Tickets::Tag.for_type(tags, ::Tickets::Tag::PRIORITY)
+  end
 
-    def tags
-      @tags ||= object.tags.map { |t| t.name }
-    end
+  def reason
+    ::Tickets::Tag.for_type(tags, ::Tickets::Tag::REASON)
+  end
+
+  def tags
+    @tags ||= object.tags.map { |t| t.name }
+  end
+
+  def assigned
+    ::BasicUserSerializer.new(object.assigned_to_user, root: 'user').as_json
+  end
+
+  def include_assigned?
+    object.respond_to?(:assigned_to_user) && object.assigned_to_user.present?
   end
 end

@@ -4,6 +4,6 @@ class Tickets::TicketsController < ::ApplicationController
     serializer = ActiveModel::ArraySerializer.new(tickets,
       each_serializer: Tickets::TicketSerializer
     )
-    render json: MultiJson.dump(serializer)
+    render json: ::MultiJson.dump(serializer)
   end
 end

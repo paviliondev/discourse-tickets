@@ -1,6 +1,11 @@
-<td><a title="{{ticket.title}}" href="{{ticket.href}}">{{ticket.title}}</a></td>
+<td><a title="{{ticket.title}}" href="{{ticket.url}}" target="_blank">
+  {{ticket.title}}
+</a></td>
 <td>{{ticket.status}}</td>
 <td>{{ticket.priority}}</td>
 <td>{{ticket.reason}}</td>
-<td>{{friendlyDueDate}}</td>
-<td>{{tickets-dashboard-users people=ticket.involvedUsers}}</td>
+<td>
+  {{#if ticket.assigned}}
+    {{tickets-dashboard-user user=ticket.assigned.user}}
+  {{/if}}
+</td>

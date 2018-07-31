@@ -1,5 +1,4 @@
 import { observes } from 'ember-addons/ember-computed-decorators';
-import { showModal } from 'discourse/lib/show-modal';
 
 export default Ember.Controller.extend({
   showDashboard: true,
