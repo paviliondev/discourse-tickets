@@ -9,8 +9,6 @@ export default Ember.Controller.extend({
   _refreshTickets() {
     this.set("refreshing", true);
 
-    console.log(this.get('order'), this.get('ascending'));
-
     ajax('/tickets', {
       data: {
         order: this.get("order"),
