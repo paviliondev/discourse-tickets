@@ -1,18 +1,16 @@
-{{#if showDashboard}}
-  {{#conditional-loading-spinner condition=refreshing}}
-    <table class='table users-list'>
-      <thead>
-        {{admin-directory-toggle field="title" i18nKey='tickets.dashboard_table.headings.title' order=order ascending=ascending}}
-        {{admin-directory-toggle field="status" i18nKey='tickets.status' order=order ascending=ascending}}
-        {{admin-directory-toggle field="priority" i18nKey='tickets.priority' order=order ascending=ascending}}
-        {{admin-directory-toggle field="reason" i18nKey="tickets.reason" order=order ascending=ascending}}
-        {{admin-directory-toggle field="assigned" i18nKey="tickets.dashboard_table.headings.assigned" order=order ascending=ascending}}
-      </thead>
-      <tbody>
-        {{#each model as |ticket|}}
-          {{tickets-dashboard-row ticket=ticket}}
-        {{/each}}
-      </tbody>
-    </table>
-  {{/conditional-loading-spinner}}
-{{/if}}
+{{#conditional-loading-spinner condition=refreshing}}
+  <table class='table users-list'>
+    <thead>
+      {{admin-directory-toggle field="title" i18nKey='tickets.dashboard_table.headings.title' order=order ascending=ascending}}
+      {{admin-directory-toggle field="status" i18nKey='tickets.status' order=order ascending=ascending}}
+      {{admin-directory-toggle field="priority" i18nKey='tickets.priority' order=order ascending=ascending}}
+      {{admin-directory-toggle field="reason" i18nKey="tickets.reason" order=order ascending=ascending}}
+      {{admin-directory-toggle field="assigned" i18nKey="tickets.dashboard_table.headings.assigned" order=order ascending=ascending}}
+    </thead>
+    <tbody>
+      {{#each model as |ticket|}}
+        {{tickets-dashboard-row ticket=ticket}}
+      {{/each}}
+    </tbody>
+  </table>
+{{/conditional-loading-spinner}}

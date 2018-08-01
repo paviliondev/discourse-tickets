@@ -3,6 +3,7 @@ module Tickets
     PRIORITY = 'priority'
     REASON = 'reason'
     STATUS = 'status'
+
     GROUP_PREFIX = "tickets"
     GROUPS = [
       "#{GROUP_PREFIX}_#{PRIORITY}",
