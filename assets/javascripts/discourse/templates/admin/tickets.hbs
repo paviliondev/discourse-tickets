@@ -1,3 +1,6 @@
+{{combo-box content=fields value=order}}
+{{input value=filter placeholder='filter'}}
+{{d-button action='filter' label='tickets.dashboard_table.apply_filter'}}
 {{#conditional-loading-spinner condition=refreshing}}
   <table class='table users-list'>
     <thead>

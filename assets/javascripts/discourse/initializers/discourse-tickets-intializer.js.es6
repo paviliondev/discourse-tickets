@@ -7,6 +7,7 @@ export default {
   name: 'discourse-tickets-initializer',
   initialize(container) {
     const currentUser = container.lookup('current-user:main');
+    const siteSettings = container.lookup("site-settings:main");
 
     withPluginApi('0.8.13', api => {
       api.modifyClass('component:mini-tag-chooser', {
@@ -87,6 +88,20 @@ export default {
           return html;
         }
       });
+
+      if (siteSettings.assign_enabled) {
+        api.modifyClass('route:user-activity-assigned', {
+          redirect() {
+            this.replaceWith('adminTickets', {
+              queryParams: {
+                order: 'assigned',
+                filter: this.modelFor("user").get("username_lower")
+              }
+            }
+          );
+          }
+        });
+      }
     });
   }
 };

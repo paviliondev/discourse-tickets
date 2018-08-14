@@ -11,6 +11,7 @@ en:
         select: "Select a {{type}}"
 
       dashboard_table:
+        apply_filter: "Apply"
         headings:
           title: "Title"
           due_date: "Due Date"

@@ -10,6 +10,6 @@ class Tickets::TicketsController < ::ApplicationController
   private
 
   def ticket_params
-    params.permit(:order, :ascending)
+    params.permit(:order, :ascending, :filter)
   end
 end

@@ -2,18 +2,24 @@ import { observes } from 'ember-addons/ember-computed-decorators';
 import { ajax } from 'discourse/lib/ajax';
 
 export default Ember.Controller.extend({
-  queryParams: ['order'],
+  queryParams: ['order', 'filter'],
+  fields: ['title', 'status', 'priority', 'reason', 'assigned'],
   order: '',
   ascending: true,
 
   @observes("order", "ascending")
-  _refreshTickets() {
+  orderChanged() {
+    this.refreshTickets();
+  },
+
+  refreshTickets() {
     this.set("refreshing", true);
 
     ajax('/tickets', {
       data: {
         order: this.get("order"),
-        ascending: this.get("ascending")
+        ascending: this.get("ascending"),
+        filter: this.get('filter')
       }
     })
       .then(result => {
@@ -22,5 +28,11 @@ export default Ember.Controller.extend({
       .finally(() => {
         this.set("refreshing", false);
       });
+  },
+
+  actions: {
+    filter() {
+      this.refreshTickets();
+    }
   }
 });
