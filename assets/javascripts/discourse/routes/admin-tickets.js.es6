@@ -1,7 +1,11 @@
 import { ajax } from 'discourse/lib/ajax';
 
 export default Ember.Route.extend({
-  model() {
-    return ajax('/tickets');
+  model(params) {
+    return ajax('/tickets', {
+      data: {
+        order: params.order
+      }
+    });
   }
 });

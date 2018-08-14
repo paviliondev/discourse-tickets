@@ -1,7 +1,7 @@
 import { withPluginApi } from 'discourse/lib/plugin-api';
 import { default as computed } from 'ember-addons/ember-computed-decorators';
 import { escapeExpression } from "discourse/lib/utilities";
-import { isTicketTag } from '../lib/ticket-utilities';
+import { isTicketTag, ticketTagGroup } from '../lib/ticket-utilities';
 
 export default {
   name: 'discourse-tickets-initializer',
@@ -60,7 +60,9 @@ export default {
       let hideTicketTags = function() {
         Ember.run.scheduleOnce('afterRender', () => {
           $('.discourse-tags').children().each(function() {
-            if ($(this).hasClass('discourse-tag') && !$(this).hasClass('assigned-to')) {
+            if ($(this).hasClass('discourse-tag') &&
+                !$(this).hasClass('ticket') &&
+                !$(this).hasClass('assigned-to')) {
               let tag = $(this).text();
               if (isTicketTag(tag)) $(this).hide();
             }
@@ -75,9 +77,12 @@ export default {
           const icon = Discourse.SiteSettings.tickets_icon;
           const ticketTags = topic.tags.filter(t => isTicketTag(t));
 
-          let html = `<a class='ticket discourse-tag simple'><i class='fa fa-${icon}'></i>`;
-          ticketTags.forEach((t) => html += `<span>${t}</span>`);
-          html += "</a>";
+          let html = `<i class='fa fa-${icon} ticket-icon'></i>`;
+
+          ticketTags.forEach((t) => {
+            let group = ticketTagGroup(t);
+            html += `<a href='/admin/tickets?order=${group}' class='ticket discourse-tag simple'>${t}</a>`;
+          });
 
           return html;
         }

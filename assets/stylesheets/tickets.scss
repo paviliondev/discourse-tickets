@@ -45,23 +45,12 @@
 }
 
 .discourse-tags {
-  .ticket {
+  i.ticket-icon {
     margin-right: 4px;
+    color: $primary-medium;
+  }
 
-    i {
-      margin-right: 2px;
-    }
-
-    span {
-      padding: 0 4px;
-
-      &:not(:first-of-type) {
-        border-left: 1px solid $primary-medium;
-      }
-
-      &:last-of-type {
-        padding-right: 0;
-      }
-    }
+  .ticket, .ticket:hover {
+    margin-right: 4px;
   }
 }

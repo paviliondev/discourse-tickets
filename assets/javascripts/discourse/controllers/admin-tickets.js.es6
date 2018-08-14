@@ -2,6 +2,7 @@ import { observes } from 'ember-addons/ember-computed-decorators';
 import { ajax } from 'discourse/lib/ajax';
 
 export default Ember.Controller.extend({
+  queryParams: ['order'],
   order: '',
   ascending: true,
 
