@@ -5,35 +5,42 @@
 }
 
 .tickets-controls {
-  > .btn {
+  .toggle-ticket {
     display: block;
   }
 
   .ticket-controls {
     padding-top: 14px;
-    display: flex;
+    display: inline-flex;
+    vertical-align: middle;
     align-items: center;
-  }
 
-  .control-group {
-    margin-right: 15px;
-  }
+    .control-group {
+      margin-right: 15px;
+    }
 
-  .controls {
-    min-height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .controls {
+      min-height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    &.save {
-      min-width: 60px;
-      margin-left: 10px;
-      justify-content: space-between;
+      &.save {
+        min-width: 60px;
+        margin-left: 10px;
+        justify-content: space-between;
 
-      > .btn {
-        margin: 0;
+        > .btn {
+          margin: 0;
+        }
       }
     }
+  }
+
+  .assign {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 26px;
   }
 }
 

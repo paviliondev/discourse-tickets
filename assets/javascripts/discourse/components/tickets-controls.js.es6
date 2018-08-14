@@ -1,5 +1,7 @@
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 import { isTicketTag } from '../lib/ticket-utilities';
+import showModal from 'discourse/lib/show-modal';
+import { ajax } from 'discourse/lib/ajax';
 
 const ticketTypes = ['priority', 'status', 'reason'];
 
@@ -35,7 +37,9 @@ export default Ember.Component.extend({
 
   @computed('topic.is_ticket')
   toggleClasses(isTicket) {
-    return isTicket ? 'btn-primary' : '';
+    let classes = 'toggle-ticket';
+    if (isTicket) classes += ' btn-primary';
+    return classes;
   },
 
   @observes('priority', 'status', 'reason')
@@ -85,6 +89,24 @@ export default Ember.Component.extend({
   actions: {
     toggleIsTicket() {
       this.toggleProperty('topic.is_ticket');
+    },
+
+    unassign(){
+      this.set('topic.assigned_to_user', null);
+
+      return ajax("/assign/unassign", {
+        type: 'PUT',
+        data: { topic_id: this.get('topic.id')}
+      });
+    },
+
+    assign(){
+      showModal("assign-user", {
+        model: {
+          topic: this.get('topic'),
+          username: this.get('topic.assigned_to_user.username')
+        }
+      });
     }
   }
 });
