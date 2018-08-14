@@ -17,17 +17,7 @@ after_initialize do
   load File.expand_path("../controllers/tickets/tickets_controller.rb", __FILE__)
   load File.expand_path("../serializers/tickets/ticket_serializer.rb", __FILE__)
 
-  Tickets::Tag::GROUPS.each do |tag_group_name|
-    unless TagGroup.exists?(name: tag_group_name)
-      tag_group = TagGroup.new(
-        name: tag_group_name,
-        permissions: {
-          staff: 1
-        }
-      )
-      tag_group.save
-    end
-  end
+  register_seedfu_fixtures(Rails.root.join("plugins", "discourse-tickets", "db", "fixtures").to_s)
 
   add_class_method(:site, :ticket_tags) do
     Tag.joins('JOIN tag_group_memberships ON tags.id = tag_group_memberships.tag_id')
