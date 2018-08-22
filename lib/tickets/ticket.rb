@@ -6,36 +6,36 @@ module Tickets
         WHERE name = 'is_ticket' AND value::boolean IS TRUE)"
       )
 
-      if opts[:order] && opts[:filter].present?
-        case opts[:order]
-        when 'title'
-          tickets = tickets.where("title like ?", "%#{opts[:filter]}%")
-        when 'status', 'priority', 'reason'
-          tickets = tickets.where("
-            (SELECT name FROM tags WHERE tags.id IN (
-                SELECT tag_id FROM topic_tags
-                WHERE topic_id = topics.id
-              ) AND tags.id IN (
-                SELECT tag_id FROM tag_group_memberships
-                WHERE tag_group_id IN (
-                  SELECT id FROM tag_groups
-                  WHERE name = 'tickets_#{opts[:order]}'
+      if opts[:filters].present?
+        opts[:filters].each do |f|
+          case f[:field]
+          when 'status', 'priority', 'reason'
+            tickets = tickets.where("
+              (SELECT name FROM tags WHERE tags.id IN (
+                  SELECT tag_id FROM topic_tags
+                  WHERE topic_id = topics.id
+                ) AND tags.id IN (
+                  SELECT tag_id FROM tag_group_memberships
+                  WHERE tag_group_id IN (
+                    SELECT id FROM tag_groups
+                    WHERE name = 'tickets_#{f[:field]}'
+                  )
                 )
+               ) like ?", "%#{f[:value]}%")
+          when 'assigned'
+            tickets = tickets.where("id in (
+              SELECT topic_id FROM topic_custom_fields
+              WHERE topic_custom_fields.name = 'assigned_to_id' AND
+              topic_custom_fields.value IN (
+                SELECT id::text FROM users
+                WHERE users.username LIKE ?
               )
-             ) like ?", "%#{opts[:filter]}%")
-        when 'assigned'
-          tickets = tickets.where("id in (
-            SELECT topic_id FROM topic_custom_fields
-            WHERE topic_custom_fields.name = 'assigned_to_id' AND
-            topic_custom_fields.value IN (
-              SELECT id::text FROM users
-              WHERE users.username LIKE ?
-            )
-          )", "%#{opts[:filter]}%")
-        else
-          ## do nothing
+            )", "%#{f[:value]}%")
+          else
+            ## do nothing
+          end
         end
-      elsif opts[:order]
+      elsif opts[:order].present?
         direction = opts[:ascending].present? ? 'ASC' : 'DESC'
         order = ''
 

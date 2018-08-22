@@ -82,7 +82,7 @@ export default {
 
           ticketTags.forEach((t) => {
             let group = ticketTagGroup(t);
-            html += `<a href='/admin/tickets?order=${group}' class='ticket discourse-tag simple'>${t}</a>`;
+            html += `<a href='/admin/tickets?filters=${group}:${t}' class='ticket discourse-tag simple'>${t}</a>`;
           });
 
           return html;
@@ -92,10 +92,10 @@ export default {
       if (siteSettings.assign_enabled) {
         api.modifyClass('route:user-activity-assigned', {
           redirect() {
+            const username = this.modelFor("user").get("username_lower");
             this.replaceWith('adminTickets', {
               queryParams: {
-                order: 'assigned',
-                filter: this.modelFor("user").get("username_lower")
+                filters: `assigned:${username}`
               }
             }
           );

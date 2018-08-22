@@ -31,6 +31,21 @@
                     none=reasonNone}}
       </div>
     </div>
+    {{#if showInclude}}
+      <div class="control-group">
+        <label>{{i18n 'tickets.include'}}</label>
+        <div class="controls">
+          {{user-selector single=true
+                          excludeCurrentUser=true
+                          includeMessageableGroups=true
+                          hasGroups=hasGroups
+                          usernames=includeUsernames
+                          canReceiveUpdates="true"
+                          placeholderKey='tickets.include_placeholder'
+                          onChangeCallback="includedChanged"}}
+        </div>
+      </div>
+    {{/if}}
   </div>
   {{#if siteSettings.assign_enabled}}
     {{#if topic.assigned_to_user.username}}

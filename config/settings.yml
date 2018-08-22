@@ -6,3 +6,6 @@ plugins:
   tickets_icon:
     default: 'tag'
     client: true
+  tickets_include_group:
+    default: ''
+    client: true

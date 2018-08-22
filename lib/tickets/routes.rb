@@ -1,5 +1,5 @@
 Tickets::Engine.routes.draw do
-  resources :tickets, only: [:index, :show], constraints: { id: /(topic|post)-\d+/ }
+  get 'tickets' => 'tickets#index'
 end
 
 Discourse::Application.routes.append do

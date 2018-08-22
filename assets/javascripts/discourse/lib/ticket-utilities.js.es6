@@ -26,4 +26,29 @@ const ticketTagGroup = function(tag) {
   return group;
 };
 
-export { isTicketTag, allTicketTags, ticketTagGroup };
+const generateValueMap = function(tickets) {
+  let valueMap = {
+    status: [],
+    priority: [],
+    reason: [],
+    assigned: []
+  };
+
+  tickets.forEach((t) => {
+    Object.keys(valueMap).forEach((field) => {
+      if (valueMap[field].indexOf(t[field]) === -1) {
+        if (field === 'assigned') {
+          if (t[field]) {
+            valueMap[field].push(t[field].user.username);
+          }
+        } else {
+          valueMap[field].push(t[field]);
+        }
+      }
+    });
+  });
+
+  return valueMap;
+};
+
+export { isTicketTag, allTicketTags, ticketTagGroup, generateValueMap };

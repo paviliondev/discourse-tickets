@@ -8,6 +8,8 @@ const ticketTypes = ['priority', 'status', 'reason'];
 export default Ember.Component.extend({
   classNames: 'tickets-controls',
   notTicket: Ember.computed.not('topic.is_ticket'),
+  includeUsernames: '',
+  hasGroups: null,
 
   didInsertElement() {
     this.setup();
@@ -33,6 +35,21 @@ export default Ember.Component.extend({
 
       this.setProperties(props);
     });
+
+    let includeGroup = Discourse.SiteSettings.tickets_include_group;
+
+    const currentGroups = topic.get('content.details.allowed_groups');
+    if (currentGroups && currentGroups.length) {
+      let names = currentGroups.map((cg) => cg.name);
+      if (names.indexOf(includeGroup) > -1) includeGroup = null;
+    }
+
+    if (includeGroup) {
+      this.setProperties({
+        includeUsernames: includeGroup,
+        hasGroups: true
+      });
+    }
   },
 
   @computed('topic.is_ticket')
@@ -40,6 +57,11 @@ export default Ember.Component.extend({
     let classes = 'toggle-ticket';
     if (isTicket) classes += ' btn-primary';
     return classes;
+  },
+
+  @computed
+  showInclude() {
+    return this.get('topic.archetype') === 'private_message';
   },
 
   @observes('priority', 'status', 'reason')
@@ -107,6 +129,13 @@ export default Ember.Component.extend({
           username: this.get('topic.assigned_to_user.username')
         }
       });
+    },
+
+    includedChanged() {
+      const hasGroups = this.get('hasGroups');
+      const usernames = this.get('includeUsernames');
+      let type = hasGroups ? 'groups' : 'users';
+      this.set(`topic.allowed_${type}`, usernames);
     }
   }
 });

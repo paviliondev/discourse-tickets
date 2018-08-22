@@ -1,6 +1,19 @@
-{{combo-box content=fields value=order}}
-{{input value=filter placeholder='filter'}}
-{{d-button action='filter' label='tickets.dashboard_table.apply_filter'}}
+<div class="tickets-filters">
+  <div class="controls">
+    {{combo-box content=filterFields value=filterField none='tickets.dashboard_table.filter.field'}}
+    {{combo-box content=filterValues value=filterValue none='tickets.dashboard_table.filter.value'}}
+    {{d-button action='applyFilter' label='tickets.dashboard_table.filter.apply'}}
+  </div>
+  <div class="filters">
+    {{#each currentFilters as |filter|}}
+      <div class="filter">
+        <span>{{filter.field}}: {{filter.value}}</span>
+        {{d-button action='removeFilter' actionParam=filter icon='times'}}
+      </div>
+    {{/each}}
+  </div>
+</div>
+
 {{#conditional-loading-spinner condition=refreshing}}
   <table class='table users-list'>
     <thead>
@@ -11,7 +24,7 @@
       {{admin-directory-toggle field="assigned" i18nKey="tickets.dashboard_table.headings.assigned" order=order ascending=ascending}}
     </thead>
     <tbody>
-      {{#each model as |ticket|}}
+      {{#each tickets as |ticket|}}
         {{tickets-dashboard-row ticket=ticket}}
       {{/each}}
     </tbody>
