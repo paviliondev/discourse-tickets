@@ -9,16 +9,18 @@ export default Ember.Route.extend({
       data['order'] = params['order'];
     }
 
+    let currentFilters = [];
+
     if (params['filters']) {
-      let currentFilters = params['filters'].split(',').map((f) => {
+      currentFilters = params['filters'].split(',').map((f) => {
         let arr = f.split(':');
         return { "field": arr[0], "value": arr[1] };
       });
 
       data['filters'] = params['filters'];
-
-      this.set('currentFilters', Ember.A(currentFilters));
     }
+
+    this.set('currentFilters', Ember.A(currentFilters));
 
     return ajax('/tickets', { data });
   },
