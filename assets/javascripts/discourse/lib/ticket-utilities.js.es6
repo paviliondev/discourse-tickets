@@ -38,7 +38,7 @@ const generateValueMap = function(tickets) {
     Object.keys(valueMap).forEach((field) => {
       if (valueMap[field].indexOf(t[field]) === -1) {
         if (field === 'assigned') {
-          if (t[field]) {
+          if (t[field] && valueMap[field].indexOf(t[field].user.username) === -1) {
             valueMap[field].push(t[field].user.username);
           }
         } else {
