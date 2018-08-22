@@ -5,3 +5,4 @@ en:
     tickets_enabled: "Enable tickets on topics? (requires tagging to be enabled)."
     tickets_icon: "FontAwesome class of tickets icon."
     tickets_include_group: "Name of group to include on all private messages with tickets."
+    tickets_redirect_assigned: "Redirect user assigned routes to ticket dashboard."

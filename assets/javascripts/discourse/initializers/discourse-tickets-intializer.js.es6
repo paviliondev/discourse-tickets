@@ -92,13 +92,27 @@ export default {
       if (siteSettings.assign_enabled) {
         api.modifyClass('route:user-activity-assigned', {
           redirect() {
-            const username = this.modelFor("user").get("username_lower");
-            this.replaceWith('adminTickets', {
-              queryParams: {
-                filters: `assigned:${username}`
-              }
+            if (Discourse.SiteSettings.tickets_redirect_assigned) {
+              const username = this.modelFor("user").get("username_lower");
+              this.replaceWith('adminTickets', {
+                queryParams: {
+                  filters: `assigned:${username}`
+                }
+              });
             }
-          );
+          }
+        });
+
+        api.modifyClass('route:user-private-messages-assigned', {
+          redirect() {
+            if (Discourse.SiteSettings.tickets_redirect_assigned) {
+              const username = this.modelFor("user").get("username_lower");
+              this.replaceWith('adminTickets', {
+                queryParams: {
+                  filters: `assigned:${username}`
+                }
+              });
+            }
           }
         });
       }

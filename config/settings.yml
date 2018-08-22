@@ -9,3 +9,6 @@ plugins:
   tickets_include_group:
     default: ''
     client: true
+  tickets_redirect_assigned:
+    default: false
+    client: true
