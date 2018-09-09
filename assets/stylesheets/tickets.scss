@@ -39,8 +39,8 @@
 
   .assign {
     display: inline-block;
-    vertical-align: middle;
-    margin-top: 26px;
+    vertical-align: bottom;
+    margin-bottom: 10px;
   }
 }
 
@@ -81,5 +81,13 @@
         background-color: $primary-low;
       }
     }
+  }
+
+  a.discourse-tag:after {
+    content: ',';
+  }
+
+  a.discourse-tag:last-of-type:after {
+    content: '';
   }
 }

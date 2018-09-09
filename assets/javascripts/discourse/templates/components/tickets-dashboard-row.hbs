@@ -1,6 +1,11 @@
 <td><a title="{{ticket.title}}" href="{{ticket.url}}">
   {{ticket.title}}
 </a></td>
+<td class="tags">
+  {{#each ticket.tags as |t|}}
+    {{discourse-tag t}}
+  {{/each}}
+</td>
 <td>{{ticket.status}}</td>
 <td>{{ticket.priority}}</td>
 <td>{{ticket.reason}}</td>

@@ -23,7 +23,7 @@ module Tickets
                 )
                ) like ?", "%#{f[:value]}%")
           when 'assigned'
-            tickets = tickets.where("id in (
+            tickets = tickets.where("id IN (
               SELECT topic_id FROM topic_custom_fields
               WHERE topic_custom_fields.name = 'assigned_to_id' AND
               topic_custom_fields.value IN (
@@ -31,6 +31,14 @@ module Tickets
                 WHERE users.username LIKE ?
               )
             )", "%#{f[:value]}%")
+          when 'tag'
+            tickets = tickets.where("id IN (
+              SELECT topic_id FROM topic_tags
+              WHERE topic_tags.tag_id IN (
+                SELECT id FROM tags
+                WHERE tags.name = ?
+              )
+            )", f[:value])
           else
             ## do nothing
           end

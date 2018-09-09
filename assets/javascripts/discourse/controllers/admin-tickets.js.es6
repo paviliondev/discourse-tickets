@@ -4,7 +4,7 @@ import { ajax } from 'discourse/lib/ajax';
 
 export default Ember.Controller.extend({
   queryParams: ['order', 'filters'],
-  filterFields: Ember.A(['status', 'priority', 'reason', 'assigned']),
+  filterFields: Ember.A(['tag', 'status', 'priority', 'reason', 'assigned']),
   order: '',
   ascending: true,
   currentFilters: Ember.A(),

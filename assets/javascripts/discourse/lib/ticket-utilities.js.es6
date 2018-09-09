@@ -28,6 +28,7 @@ const ticketTagGroup = function(tag) {
 
 const generateValueMap = function(tickets) {
   let valueMap = {
+    tag: [],
     status: [],
     priority: [],
     reason: [],
@@ -36,12 +37,18 @@ const generateValueMap = function(tickets) {
 
   tickets.forEach((t) => {
     Object.keys(valueMap).forEach((field) => {
-      if (valueMap[field].indexOf(t[field]) === -1) {
-        if (field === 'assigned') {
-          if (t[field] && valueMap[field].indexOf(t[field].user.username) === -1) {
-            valueMap[field].push(t[field].user.username);
+      if (field === 'assigned') {
+        if (t[field] && valueMap[field].indexOf(t[field].user.username) === -1) {
+          valueMap[field].push(t[field].user.username);
+        }
+      } else if (field === 'tag') {
+        t['tags'].forEach((tag) => {
+          if (valueMap[field].indexOf(tag) === -1) {
+            valueMap[field].push(tag);
           }
-        } else {
+        });
+      } else {
+        if (valueMap[field].indexOf(t[field]) === -1) {
           valueMap[field].push(t[field]);
         }
       }
