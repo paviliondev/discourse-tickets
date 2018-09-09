@@ -23,7 +23,8 @@ after_initialize do
     Tag.joins('JOIN tag_group_memberships ON tags.id = tag_group_memberships.tag_id')
       .joins('JOIN tag_groups ON tag_group_memberships.tag_group_id = tag_groups.id')
       .where('tag_groups.name in (?)', Tickets::Tag::GROUPS)
-      .group('tag_groups.name, tags.name')
+      .group('tag_groups.name, tags.name', 'tag_group_memberships.created_at')
+      .order('tag_group_memberships.created_at')
       .pluck('tag_groups.name, tags.name')
       .each_with_object({}) do |arr, result|
         type = arr[0].split("_").last
