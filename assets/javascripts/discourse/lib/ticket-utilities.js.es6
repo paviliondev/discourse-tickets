@@ -43,12 +43,12 @@ const generateValueMap = function(tickets) {
         }
       } else if (field === 'tag') {
         t['tags'].forEach((tag) => {
-          if (valueMap[field].indexOf(tag) === -1) {
+          if (tag && valueMap[field].indexOf(tag) === -1) {
             valueMap[field].push(tag);
           }
         });
       } else {
-        if (valueMap[field].indexOf(t[field]) === -1) {
+        if (t[field] && valueMap[field].indexOf(t[field]) === -1) {
           valueMap[field].push(t[field]);
         }
       }
