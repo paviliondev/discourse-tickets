@@ -21,7 +21,7 @@ module Tickets
                     WHERE name = 'tickets_#{f[:field]}'
                   )
                 )
-               ) like ?", "%#{f[:value]}%")
+               ) = ?", "#{f[:value]}")
           when 'assigned'
             tickets = tickets.where("id IN (
               SELECT topic_id FROM topic_custom_fields
