@@ -82,12 +82,4 @@
       }
     }
   }
-
-  a.discourse-tag:after {
-    content: ',';
-  }
-
-  a.discourse-tag:last-of-type:after {
-    content: '';
-  }
 }
