@@ -3,7 +3,9 @@
 </a></td>
 <td class="tags">
   {{#each ticket.tags as |t|}}
-    {{discourse-tag t}}
+    <a {{action filterBy 'tag' t}}>
+      {{discourse-tag t noHref=true}}
+    </a>
   {{/each}}
 </td>
 <td>{{ticket.status}}</td>
@@ -11,6 +13,7 @@
 <td>{{ticket.reason}}</td>
 <td>
   {{#if ticket.assigned}}
-    {{tickets-dashboard-user user=ticket.assigned.user}}
+    {{tickets-dashboard-user user=ticket.assigned.user
+                             filterBy=filterBy}}
   {{/if}}
 </td>

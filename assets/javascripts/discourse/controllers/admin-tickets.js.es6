@@ -58,6 +58,13 @@ export default Ember.Controller.extend({
       this.get('currentFilters').removeObject(
         this.get('currentFilters').findBy('field', field)
       );
+    },
+
+    filterBy(field, value) {
+      this.get('currentFilters').pushObject({
+        field,
+        value
+      });
     }
   }
 });

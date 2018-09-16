@@ -26,7 +26,8 @@
     </thead>
     <tbody>
       {{#each tickets as |ticket|}}
-        {{tickets-dashboard-row ticket=ticket}}
+        {{tickets-dashboard-row ticket=ticket
+                                filterBy=(action 'filterBy')}}
       {{/each}}
     </tbody>
   </table>
