@@ -24,7 +24,7 @@ export default Ember.Component.extend({
       let list = ticketTags[type];
       let value = '';
 
-      if (currentTags) {
+      if (list && currentTags) {
         value = currentTags.find(t => list.indexOf(t) > -1);
       }
 
@@ -85,7 +85,9 @@ export default Ember.Component.extend({
     let list = this.get(`${ticketType}List`);
     let tags = topic.get('tags') || [];
 
-    tags = tags.filter(t => list.indexOf(t) === -1);
+    if (list) {
+      tags = tags.filter(t => list.indexOf(t) === -1);
+    }
 
     if (ticket) {
       tags.push(ticket);

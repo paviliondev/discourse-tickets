@@ -10,6 +10,7 @@ load File.expand_path('../lib/tickets/validator.rb', __FILE__)
 
 after_initialize do
   load File.expand_path('../lib/tickets/engine.rb', __FILE__)
+  load File.expand_path("../lib/tickets/guardian.rb", __FILE__)
   load File.expand_path('../lib/tickets/routes.rb', __FILE__)
   load File.expand_path("../lib/tickets/topic.rb", __FILE__)
   load File.expand_path("../lib/tickets/ticket.rb", __FILE__)
