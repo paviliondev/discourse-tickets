@@ -11,7 +11,8 @@ module Tickets
           case f[:field]
           when 'status', 'priority', 'reason'
             tickets = tickets.where("
-              (SELECT name FROM tags WHERE tags.id IN (
+              (SELECT name FROM tags
+                WHERE tags.id IN (
                   SELECT tag_id FROM topic_tags
                   WHERE topic_id = topics.id
                 ) AND tags.id IN (
@@ -21,6 +22,7 @@ module Tickets
                     WHERE name = 'tickets_#{f[:field]}'
                   )
                 )
+                LIMIT 1
                ) = ?", "#{f[:value]}")
           when 'assigned'
             tickets = tickets.where("id IN (
