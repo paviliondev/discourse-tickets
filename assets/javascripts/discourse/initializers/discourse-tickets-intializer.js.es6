@@ -72,7 +72,7 @@ export default {
       };
 
       api.addTagsHtmlCallback((topic) => {
-        if (topic.is_ticket && topic.tags && currentUser.staff) {
+        if (topic.is_ticket && topic.tags && currentUser && currentUser.staff) {
           hideTicketTags();
 
           const icon = Discourse.SiteSettings.tickets_icon;
