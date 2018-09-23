@@ -82,4 +82,25 @@
       }
     }
   }
+
+  .tickets-pages {
+    display: flex;
+    align-items: center;
+
+    .label {
+      margin-right: 5px;
+    }
+
+    .count {
+      margin-right: 20px;
+    }
+
+    .controls {
+      margin-right: 10px;
+
+      .btn {
+        margin-right: 5px;
+      }
+    }
+  }
 }

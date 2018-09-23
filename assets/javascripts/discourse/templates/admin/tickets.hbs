@@ -14,6 +14,26 @@
   </div>
 </div>
 
+<div class="tickets-pages">
+  <span class="label">{{i18n 'tickets.dashboard_table.page.label'}}</span>
+  <div class="count">
+    {{#if lessThanLimit}}
+      {{total}}
+    {{else}}
+      {{pageStart}} - {{pageEnd}} of {{total}}
+    {{/if}}
+  </div>
+  <div class="controls">
+    {{d-button action='previousPage' label='tickets.dashboard_table.page.previous'disabled=previousDisabled}}
+    {{d-button action='nextPage' label='tickets.dashboard_table.page.next' disabled=nextDisabled}}
+  </div>
+  <div class="page-list">
+    {{#each pages as |p|}}
+      {{d-button translatedLabel=p.number action='goToPage' actionParam=p.number class=p.classes}}
+    {{/each}}
+  </div>
+</div>
+
 {{#conditional-loading-spinner condition=refreshing}}
   <table class='table users-list'>
     <thead>

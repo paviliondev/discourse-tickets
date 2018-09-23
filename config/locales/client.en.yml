@@ -13,6 +13,10 @@ en:
         select: "Select a {{type}}"
 
       dashboard_table:
+        page:
+          label: "Tickets"
+          next: "Next"
+          previous: "Previous"
         filter:
           field: "Select a field"
           value: "Select a value"

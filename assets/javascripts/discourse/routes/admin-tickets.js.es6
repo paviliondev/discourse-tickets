@@ -20,18 +20,27 @@ export default Ember.Route.extend({
       data['filters'] = params['filters'];
     }
 
+    if (params['page']) {
+      data['page'] = params['page'];
+    }
+
+    if (params['per_page']) {
+      data['per_page'] = params['per_page'];
+    }
+
     this.set('currentFilters', Ember.A(currentFilters));
 
     return ajax('/tickets', { data });
   },
 
   setupController(controller, model) {
-    let tickets = model;
-
     controller.setProperties({
       currentFilters: this.get('currentFilters'),
-      tickets,
-      valueMap: generateValueMap(tickets)
+      tickets: model.tickets,
+      total: model.total,
+      perPage: model.per_page,
+      page: model.page,
+      valueMap: generateValueMap(model.tickets)
     });
   },
 

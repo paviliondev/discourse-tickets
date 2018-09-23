@@ -1,7 +1,8 @@
 module Tickets
   class Ticket
     def self.find(opts = {})
-      tickets = ::Topic.where("id in (
+
+      topics = ::Topic.where("id in (
         SELECT topic_id FROM topic_custom_fields
         WHERE name = 'is_ticket' AND value::boolean IS TRUE)"
       )
@@ -10,7 +11,7 @@ module Tickets
         opts[:filters].each do |f|
           case f[:field]
           when 'status', 'priority', 'reason'
-            tickets = tickets.where("
+            topics = topics.where("
               (SELECT name FROM tags
                 WHERE tags.id IN (
                   SELECT tag_id FROM topic_tags
@@ -25,7 +26,7 @@ module Tickets
                 LIMIT 1
                ) = ?", "#{f[:value]}")
           when 'assigned'
-            tickets = tickets.where("id IN (
+            topics = topics.where("id IN (
               SELECT topic_id FROM topic_custom_fields
               WHERE topic_custom_fields.name = 'assigned_to_id' AND
               topic_custom_fields.value IN (
@@ -34,7 +35,7 @@ module Tickets
               )
             )", "%#{f[:value]}%")
           when 'tag'
-            tickets = tickets.where("id IN (
+            topics = topics.where("id IN (
               SELECT topic_id FROM topic_tags
               WHERE topic_tags.tag_id IN (
                 SELECT id FROM tags
@@ -73,10 +74,10 @@ module Tickets
           order = 'created_at'
         end
 
-        tickets = tickets.order("#{order} #{direction}")
+        topics = topics.order("#{order} #{direction}")
       end
 
-      tickets
+      topics
     end
   end
 end
