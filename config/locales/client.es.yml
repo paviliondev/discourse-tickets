@@ -1,0 +1,27 @@
+es:
+  js:
+    tickets:
+      nav_button_title: "Tickets"
+      priority: "Prioridad"
+      status: "Estado"
+      reason: "Razón"
+      include: "Incluir"
+      include_placeholder: "Usuarios o grupos"
+
+      topic:
+        is_ticket: "Ticket"
+        select: "Selecciona un {{type}}"
+
+      dashboard_table:
+        page:
+          label: "Tickets"
+          next: "Siguiente"
+          previous: "Anterior"
+        filter:
+          field: "Selecciona un campo"
+          value: "Selecciona un valor"
+          apply: "Aplicar"
+        headings:
+          title: "Título"
+          due_date: "Fecha límite"
+          assigned: "Asignado"
