@@ -1,0 +1,8 @@
+es:
+  site_settings:
+    errors:
+      tickets_enabled_requires_tagging: "Las etiquetas deben estar activadas antes de activar los tickets."
+    tickets_enabled: "¿Activar tickets en temas? (es necesario tener activadas las etiquetas)."
+    tickets_icon: "Clase de FontAwesome del icono para tickets."
+    tickets_include_group: "Nombre del grupo a incluir en todos los mensajes privados con tickets."
+    tickets_redirect_assigned: "Redireccionar rutas de usuario asignado al panel de tickets."
