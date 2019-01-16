@@ -13,7 +13,7 @@ module Tickets
 
     def self.for_type(tags, type)
       ticket_tags = ::Site.ticket_tags
-      tags.select { |t| ticket_tags[type].include? t }.first
+      tags.select { |t| ticket_tags[type] && ticket_tags[type].include?(t) }.first
     end
   end
 end
