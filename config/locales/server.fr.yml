@@ -1,0 +1,8 @@
+fr:
+  site_settings:
+    errors:
+      tickets_enabled_requires_tagging: "Le marquage doit être activé pour activer les tickets."
+    tickets_enabled: "Activer les billets sur des sujets? (nécessite que le marquage soit activé)."
+    tickets_icon: "Classe FontAwesome d'icône de billets."
+    tickets_include_group: "Nom du groupe à inclure dans tous les messages privés avec des tickets."
+    tickets_redirect_assigned: "Rediriger les itinéraires attribués par l'utilisateur vers le tableau de bord du ticket."

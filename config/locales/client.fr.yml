@@ -1,0 +1,27 @@
+fr:
+  js:
+    tickets:
+      nav_button_title: "Billets"
+      priority: "Priorité"
+      status: "Statut"
+      reason: "Raison"
+      include: "Comprend"
+      include_placeholder: "Utilisateurs ou groupes"
+
+      topic:
+        is_ticket: "Billet"
+        select: "Sélectionnez un {{type}}"
+
+      dashboard_table:
+        page:
+          label: "Billets"
+          next: "Suivant"
+          previous: "Précédent"
+        filter:
+          field: "Sélectionnez un champ"
+          value: "Sélectionnez une valeur"
+          apply: "Appliquer"
+        headings:
+          title: "Titre"
+          due_date: "Date d'échéance"
+          assigned: "Attribué"
