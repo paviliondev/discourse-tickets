@@ -49,6 +49,8 @@ export default Ember.Component.extend({
         includeUsernames: includeGroup,
         hasGroups: true
       });
+
+      this.send('includedChanged');
     }
   },
 
