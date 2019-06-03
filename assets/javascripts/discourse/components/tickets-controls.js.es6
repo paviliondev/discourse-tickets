@@ -36,21 +36,23 @@ export default Ember.Component.extend({
       this.setProperties(props);
     });
 
-    let includeGroup = Discourse.SiteSettings.tickets_include_group;
+    if (topic.get('archetype') == 'private_message') {
+      let includeGroup = Discourse.SiteSettings.tickets_include_group;
 
-    const currentGroups = topic.get('content.details.allowed_groups');
-    if (currentGroups && currentGroups.length) {
-      let names = currentGroups.map((cg) => cg.name);
-      if (names.indexOf(includeGroup) > -1) includeGroup = null;
-    }
+      const currentGroups = topic.get('content.details.allowed_groups');
+      if (currentGroups && currentGroups.length) {
+        let names = currentGroups.map((cg) => cg.name);
+        if (names.indexOf(includeGroup) > -1) includeGroup = null;
+      }
 
-    if (includeGroup) {
-      this.setProperties({
-        includeUsernames: includeGroup,
-        hasGroups: true
-      });
+      if (includeGroup) {
+        this.setProperties({
+          includeUsernames: includeGroup,
+          hasGroups: true
+        });
 
-      this.send('includedChanged');
+        this.send('includedChanged');
+      }
     }
   },
 
