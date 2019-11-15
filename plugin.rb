@@ -4,6 +4,8 @@
 # authors:
 # url: https://github.com/angusmcleod/discourse-tickets
 
+enabled_site_setting :tickets_enabled
+
 register_asset 'stylesheets/tickets.scss'
 
 load File.expand_path('../lib/tickets/validator.rb', __FILE__)
