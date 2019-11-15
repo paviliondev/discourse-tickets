@@ -35,20 +35,17 @@ after_initialize do
   end
 
   module DiscourseTaggingExtension
-    def filter_allowed_tags(query, guardian, opts = {})
-      query = super(query, guardian, opts)
-
+    def filter_allowed_tags(guardian, opts = {})
+      result = super(guardian, opts)
+      
       if opts[:for_input]
-        query = query.where('tags.id NOT IN (
-          SELECT tag_id FROM tag_group_memberships
-          WHERE tag_group_id IN (
-            SELECT id FROM tag_groups
-            WHERE name IN (?)
-          )
-        )', Tickets::Tag::GROUPS)
+        ticket_tag_ids = Tag.joins('JOIN tag_group_memberships ON tags.id = tag_group_memberships.tag_id')
+          .joins('JOIN tag_groups ON tag_group_memberships.tag_group_id = tag_groups.id')
+          .where('tag_groups.name in (?)', Tickets::Tag::GROUPS).pluck(:id)
+        result = result.select { |tag| ticket_tag_ids.exclude? tag.id }
       end
 
-      query
+      result
     end
   end
 
