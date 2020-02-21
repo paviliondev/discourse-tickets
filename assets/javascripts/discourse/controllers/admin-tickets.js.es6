@@ -1,10 +1,11 @@
 import { observes, default as computed } from 'ember-addons/ember-computed-decorators';
 import { generateValueMap } from '../lib/ticket-utilities';
 import { ajax } from 'discourse/lib/ajax';
+import { generateSelectKitContent } from '../lib/ticket-utilities';
 
 export default Ember.Controller.extend({
   queryParams: ['order', 'filters'],
-  filterFields: Ember.A(['tag', 'status', 'priority', 'reason', 'assigned']),
+  filterFields: generateSelectKitContent(Ember.A(['tag', 'status', 'priority', 'reason', 'assigned'])),
   order: '',
   ascending: true,
   currentFilters: Ember.A(),
@@ -61,7 +62,8 @@ export default Ember.Controller.extend({
 
   @observes('filterField')
   updateFilterValues() {
-    this.set('filterValues', this.get('valueMap')[this.get('filterField')]);
+    this.set('filterValues', generateSelectKitContent(this.get('valueMap')[this.get('filterField')]));
+    this.set('filterValue',null);
   },
 
   @observes("order", "ascending", "currentFilters.[]")
