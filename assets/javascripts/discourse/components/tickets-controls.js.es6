@@ -2,6 +2,7 @@ import { default as computed, observes } from 'ember-addons/ember-computed-decor
 import { isTicketTag } from '../lib/ticket-utilities';
 import showModal from 'discourse/lib/show-modal';
 import { ajax } from 'discourse/lib/ajax';
+import { generateSelectKitContent } from '../lib/ticket-utilities';
 
 const ticketTypes = ['priority', 'status', 'reason'];
 
@@ -30,7 +31,7 @@ export default Ember.Component.extend({
 
       let props = {};
       props[type] = value;
-      props[`${type}List`] = list;
+      props[`${type}List`] = generateSelectKitContent(list);
       props[`${type}None`] = { name: I18n.t('tickets.topic.select', { type }) };
 
       this.setProperties(props);
@@ -84,9 +85,13 @@ export default Ember.Component.extend({
   },
 
   updateTicket(ticketType) {
+
     const topic = this.get('topic');
     let ticket = this.get(ticketType);
-    let list = this.get(`${ticketType}List`);
+    let list = this.get(`${ticketType}List`)
+                .map(function(value) {
+                  return value.name;
+                });
     let tags = topic.get('tags') || [];
 
     if (list) {

@@ -1,7 +1,15 @@
 <div class="tickets-filters">
   <div class="controls">
-    {{combo-box content=filterFields value=filterField none='tickets.dashboard_table.filter.field'}}
-    {{combo-box content=filterValues value=filterValue none='tickets.dashboard_table.filter.value'}}
+    {{combo-box
+      content=filterFields
+      value=filterField
+      none='tickets.dashboard_table.filter.field'
+    }}
+    {{combo-box
+      content=filterValues
+      value=filterValue
+      none='tickets.dashboard_table.filter.value'
+    }}
     {{d-button action='applyFilter' label='tickets.dashboard_table.filter.apply'}}
   </div>
   <div class="filters">

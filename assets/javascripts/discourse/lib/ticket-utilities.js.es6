@@ -58,4 +58,8 @@ const generateValueMap = function(tickets) {
   return valueMap;
 };
 
-export { isTicketTag, allTicketTags, ticketTagGroup, generateValueMap };
+function generateSelectKitContent(content) {
+  return content.map(i => ({id: i, name: i}))
+}
+
+export { isTicketTag, allTicketTags, ticketTagGroup, generateValueMap, generateSelectKitContent };
