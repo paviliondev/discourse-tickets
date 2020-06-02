@@ -40,6 +40,8 @@ export default Ember.Route.extend({
       total: model.total,
       perPage: model.per_page,
       page: model.page,
+      order: null,
+      asc: null,
       valueMap: generateValueMap(model.tickets)
     });
   },

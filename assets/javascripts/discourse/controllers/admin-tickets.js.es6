@@ -6,8 +6,8 @@ import { generateSelectKitContent } from '../lib/ticket-utilities';
 export default Ember.Controller.extend({
   queryParams: ['order', 'filters'],
   filterFields: generateSelectKitContent(Ember.A(['tag', 'status', 'priority', 'reason', 'assigned'])),
-  order: '',
-  ascending: true,
+  order: null,
+  asc: true,
   currentFilters: Ember.A(),
   page: 0,
   pageStart: Ember.computed.alias('offset'),
@@ -66,7 +66,7 @@ export default Ember.Controller.extend({
     this.set('filterValue',null);
   },
 
-  @observes("order", "ascending", "currentFilters.[]")
+  @observes("order", "asc", "currentFilters.[]")
   refreshTickets() {
     this.set("refreshing", true);
     this.getTickets().then(() => {
@@ -79,7 +79,7 @@ export default Ember.Controller.extend({
 
     let data = {
       order: this.get("order"),
-      ascending: this.get("ascending"),
+      ascending: this.get("asc"),
     };
 
     if (page) {
