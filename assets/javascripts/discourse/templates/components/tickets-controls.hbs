@@ -35,14 +35,16 @@
       <div class="control-group">
         <label>{{i18n 'tickets.include'}}</label>
         <div class="controls">
-          {{user-selector single=true
-                          excludeCurrentUser=true
-                          includeMessageableGroups=true
-                          hasGroups=hasGroups
-                          usernames=includeUsernames
-                          canReceiveUpdates="true"
-                          placeholderKey='tickets.include_placeholder'
-                          onChangeCallback=(action "includedChanged")}}
+          {{email-group-user-chooser
+            value=includeUsernames
+            onChange=(action "updateIncludeUsernames")
+            options=(hash
+              maximum=1
+              excludeCurrentUser=true
+              includeMessageableGroups=true
+              filterPlaceholder="tickets.include_placeholder"
+            )
+          }}
         </div>
       </div>
     {{/if}}

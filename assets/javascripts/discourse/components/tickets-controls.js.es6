@@ -9,7 +9,7 @@ const ticketTypes = ['priority', 'status', 'reason'];
 export default Ember.Component.extend({
   classNames: 'tickets-controls',
   notTicket: Ember.computed.not('topic.is_ticket'),
-  includeUsernames: '',
+  includeUsernames: null,
   hasGroups: null,
 
   didInsertElement() {
@@ -48,11 +48,11 @@ export default Ember.Component.extend({
 
       if (includeGroup) {
         this.setProperties({
-          includeUsernames: includeGroup,
+          includeUsernames: [includeGroup],
           hasGroups: true
         });
 
-        this.send('includedChanged');
+        this.includedChanged();
       }
     }
   },
@@ -119,6 +119,13 @@ export default Ember.Component.extend({
     }
   },
 
+  includedChanged() {
+    const hasGroups = this.get('hasGroups');
+    const usernames = this.get('includeUsernames');
+    let type = hasGroups ? 'groups' : 'users';
+    this.set(`topic.allowed_${type}`, usernames.join(","));
+  },
+
   actions: {
     toggleIsTicket() {
       this.toggleProperty('topic.is_ticket');
@@ -142,11 +149,19 @@ export default Ember.Component.extend({
       });
     },
 
-    includedChanged() {
-      const hasGroups = this.get('hasGroups');
-      const usernames = this.get('includeUsernames');
-      let type = hasGroups ? 'groups' : 'users';
-      this.set(`topic.allowed_${type}`, usernames);
-    }
+    updateIncludeUsernames(selected, content) {
+      if (!content.length) {
+        this.setProperties({
+          includeUsernames: [],
+          hasGroups: false
+        });
+      } else {
+        this.setProperties({
+          includeUsernames: selected,
+          hasGroups: content[0].isGroup || false
+        });
+      }
+      this.includedChanged();
+    },
   }
 });
