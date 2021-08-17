@@ -1,4 +1,4 @@
-import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
+import { default as discourseComputed, observes } from 'discourse-common/utils/decorators';
 import { isTicketTag } from '../lib/ticket-utilities';
 import showModal from 'discourse/lib/show-modal';
 import { ajax } from 'discourse/lib/ajax';
@@ -57,14 +57,14 @@ export default Ember.Component.extend({
     }
   },
 
-  @computed('topic.is_ticket')
+  @discourseComputed('topic.is_ticket')
   toggleClasses(isTicket) {
     let classes = 'toggle-ticket';
     if (isTicket) classes += ' btn-primary';
     return classes;
   },
 
-  @computed
+  @discourseComputed
   showInclude() {
     return this.get('topic.archetype') === 'private_message';
   },
