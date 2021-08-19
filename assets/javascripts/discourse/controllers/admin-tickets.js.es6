@@ -1,4 +1,4 @@
-import { observes, default as computed } from 'ember-addons/ember-computed-decorators';
+import { observes, default as discourseComputed } from 'discourse-common/utils/decorators';
 import { generateValueMap } from '../lib/ticket-utilities';
 import { ajax } from 'discourse/lib/ajax';
 import { generateSelectKitContent } from '../lib/ticket-utilities';
@@ -13,38 +13,38 @@ export default Ember.Controller.extend({
   pageStart: Ember.computed.alias('offset'),
   previousDisabled: Ember.computed.equal('page', 0),
 
-  @computed('page', 'totalPages')
+  @discourseComputed('page', 'totalPages')
   nextDisabled(page, totalPages) {
     return page === (totalPages - 1);
   },
 
-  @computed('page', 'perPage')
+  @discourseComputed('page', 'perPage')
   offset(page, perPage) {
     return page * perPage;
   },
 
-  @computed('total', 'perPage')
+  @discourseComputed('total', 'perPage')
   lessThanLimit(total, perPage) {
     return total <= perPage;
   },
 
-  @computed('offset')
+  @discourseComputed('offset')
   pageStart(offset) {
     return offset > 0 ? offset + 1 : 0;
   },
 
-  @computed('offset', 'perPage', 'total')
+  @discourseComputed('offset', 'perPage', 'total')
   pageEnd(offset, perPage, total) {
     let end = offset + perPage;
     return end > total ? total : end;
   },
 
-  @computed('perPage', 'total')
+  @discourseComputed('perPage', 'total')
   totalPages(perPage, total) {
     return Math.ceil(total / perPage);
   },
 
-  @computed('totalPages', 'page')
+  @discourseComputed('totalPages', 'page')
   pages(totalPages, page) {
     let pages = [];
     for (let i = 1; i <= totalPages; i++) {
