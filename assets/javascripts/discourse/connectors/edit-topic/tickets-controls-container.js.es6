@@ -1,10 +1,12 @@
+import { scheduleOnce } from "@ember/runloop";
+
 export default {
   setupComponent(attrs, component) {
     const user = component.currentUser;
-    const enabled = Discourse.SiteSettings.tickets_enabled;
+    const enabled = this.siteSettings.tickets_enabled;
     component.set('showTopicTicket', user.staff && enabled);
 
-    Ember.run.scheduleOnce('afterRender', () => {
+    scheduleOnce('afterRender', () => {
       $('.tickets-controls-container').parent().addClass('tickets-controls-container-outlet');
     });
   }

@@ -1,3 +1,5 @@
+import Site from "discourse/models/site";
+
 let allTicketTags = function(site) {
   const ticketTags = site.ticket_tags;
   let result = [];
@@ -11,12 +13,12 @@ let allTicketTags = function(site) {
   }
 };
 
-const isTicketTag = function(tag, site = Discourse.Site.current()) {
+const isTicketTag = function(tag, site = Site.current()) {
   return allTicketTags(site).indexOf(tag) > -1;
 };
 
 const ticketTagGroup = function(tag) {
-  const ticketTags = Discourse.Site.currentProp('ticket_tags');
+  const ticketTags = Site.currentProp('ticket_tags');
   let group = null;
   Object.keys(ticketTags).forEach((g) => {
     if (ticketTags[g].indexOf(tag) > -1) {
@@ -59,6 +61,7 @@ const generateValueMap = function(tickets) {
 };
 
 function generateSelectKitContent(content) {
+  if (!content) return [];
   return content.map(i => ({id: i, name: i}))
 }
 

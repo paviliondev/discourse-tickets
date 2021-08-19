@@ -2,6 +2,9 @@ import { withPluginApi } from 'discourse/lib/plugin-api';
 import { default as discourseComputed } from 'discourse-common/utils/decorators';
 import { escapeExpression } from "discourse/lib/utilities";
 import { isTicketTag, ticketTagGroup } from '../lib/ticket-utilities';
+import { isEmpty } from "@ember/object/computed";
+import { get } from "@ember/object";
+import { scheduleOnce } from "@ember/runloop";
 
 export default {
   name: 'discourse-tickets-initializer',
@@ -26,7 +29,7 @@ export default {
 
         @discourseComputed("tags.[]", "filter", "highlightedSelection.[]")
         collectionHeader(tags, filter, highlightedSelection) {
-          if (!Ember.isEmpty(tags)) {
+          if (!isEmpty(tags)) {
             let output = "";
 
             if (tags.length >= 20) {
@@ -40,7 +43,7 @@ export default {
             tags.map(tag => {
               tag = escapeExpression(tag);
               const isHighlighted = highlightedSelection
-                .map(s => Ember.get(s, "value"))
+                .map(s => get(s, "value"))
                 .includes(tag);
               output += `
                 <button aria-label="${tag}" title="${tag}" class="selected-tag ${
@@ -59,7 +62,7 @@ export default {
       // eventually this should be replaced with a filter in lib/render-tags
       // (currently have to override the entire library to achieve this)
       let hideTicketTags = function() {
-        Ember.run.scheduleOnce('afterRender', () => {
+        scheduleOnce('afterRender', () => {
           $('.discourse-tags').children().each(function() {
             if ($(this).hasClass('discourse-tag') &&
                 !$(this).hasClass('ticket') &&
@@ -75,7 +78,7 @@ export default {
         if (topic.is_ticket && topic.tags && currentUser && currentUser.staff) {
           hideTicketTags();
 
-          const icon = Discourse.SiteSettings.tickets_icon;
+          const icon = siteSettings.tickets_icon;
           const ticketTags = topic.tags.filter(t => isTicketTag(t));
 
           let html = `<i class='fa fa-${icon} ticket-icon'></i>`;
@@ -92,7 +95,7 @@ export default {
       if (siteSettings.assign_enabled) {
         api.modifyClass('route:user-activity-assigned', {
           redirect() {
-            if (Discourse.SiteSettings.tickets_redirect_assigned) {
+            if (siteSettings.tickets_redirect_assigned) {
               const username = this.modelFor("user").get("username_lower");
               this.replaceWith('adminTickets', {
                 queryParams: {
@@ -105,7 +108,7 @@ export default {
 
         api.modifyClass('route:user-private-messages-assigned', {
           redirect() {
-            if (Discourse.SiteSettings.tickets_redirect_assigned) {
+            if (siteSettings.tickets_redirect_assigned) {
               const username = this.modelFor("user").get("username_lower");
               this.replaceWith('adminTickets', {
                 queryParams: {

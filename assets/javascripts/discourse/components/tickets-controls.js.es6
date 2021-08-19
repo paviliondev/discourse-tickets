@@ -3,13 +3,15 @@ import { isTicketTag } from '../lib/ticket-utilities';
 import showModal from 'discourse/lib/show-modal';
 import { ajax } from 'discourse/lib/ajax';
 import { generateSelectKitContent } from '../lib/ticket-utilities';
+import Component from "@ember/component";
+import { not } from "@ember/object/computed";
 
 const ticketTypes = ['priority', 'status', 'reason'];
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: 'tickets-controls',
-  notTicket: Ember.computed.not('topic.is_ticket'),
-  includeUsernames: '',
+  notTicket: not('topic.is_ticket'),
+  includeUsernames: null,
   hasGroups: null,
 
   didInsertElement() {
@@ -38,7 +40,7 @@ export default Ember.Component.extend({
     });
 
     if (topic.get('archetype') == 'private_message') {
-      let includeGroup = Discourse.SiteSettings.tickets_include_group;
+      let includeGroup = this.siteSettings.tickets_include_group;
 
       const currentGroups = topic.get('content.details.allowed_groups');
       if (currentGroups && currentGroups.length) {
@@ -48,11 +50,11 @@ export default Ember.Component.extend({
 
       if (includeGroup) {
         this.setProperties({
-          includeUsernames: includeGroup,
+          includeUsernames: [includeGroup],
           hasGroups: true
         });
 
-        this.send('includedChanged');
+        this.includedChanged();
       }
     }
   },
@@ -119,6 +121,13 @@ export default Ember.Component.extend({
     }
   },
 
+  includedChanged() {
+    const hasGroups = this.get('hasGroups');
+    const usernames = this.get('includeUsernames');
+    let type = hasGroups ? 'groups' : 'users';
+    this.set(`topic.allowed_${type}`, usernames.join(","));
+  },
+
   actions: {
     toggleIsTicket() {
       this.toggleProperty('topic.is_ticket');
@@ -142,11 +151,19 @@ export default Ember.Component.extend({
       });
     },
 
-    includedChanged() {
-      const hasGroups = this.get('hasGroups');
-      const usernames = this.get('includeUsernames');
-      let type = hasGroups ? 'groups' : 'users';
-      this.set(`topic.allowed_${type}`, usernames);
-    }
+    updateIncludeUsernames(selected, content) {
+      if (!content.length) {
+        this.setProperties({
+          includeUsernames: [],
+          hasGroups: false
+        });
+      } else {
+        this.setProperties({
+          includeUsernames: selected,
+          hasGroups: content[0].isGroup || false
+        });
+      }
+      this.includedChanged();
+    },
   }
 });
