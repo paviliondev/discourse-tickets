@@ -1,7 +1,9 @@
 import { ajax } from 'discourse/lib/ajax';
 import { generateValueMap } from '../lib/ticket-utilities';
+import Route from "@ember/routing/route";
+import { A } from "@ember/array";
 
-export default Ember.Route.extend({
+export default Route.extend({
   model(params) {
     let data = {};
 
@@ -28,7 +30,7 @@ export default Ember.Route.extend({
       data['per_page'] = params['per_page'];
     }
 
-    this.set('currentFilters', Ember.A(currentFilters));
+    this.set('currentFilters', A(currentFilters));
 
     return ajax('/tickets', { data });
   },

@@ -3,12 +3,14 @@ import { isTicketTag } from '../lib/ticket-utilities';
 import showModal from 'discourse/lib/show-modal';
 import { ajax } from 'discourse/lib/ajax';
 import { generateSelectKitContent } from '../lib/ticket-utilities';
+import Component from "@ember/component";
+import { not } from "@ember/object/computed";
 
 const ticketTypes = ['priority', 'status', 'reason'];
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: 'tickets-controls',
-  notTicket: Ember.computed.not('topic.is_ticket'),
+  notTicket: not('topic.is_ticket'),
   includeUsernames: null,
   hasGroups: null,
 
@@ -38,7 +40,7 @@ export default Ember.Component.extend({
     });
 
     if (topic.get('archetype') == 'private_message') {
-      let includeGroup = Discourse.SiteSettings.tickets_include_group;
+      let includeGroup = this.siteSettings.tickets_include_group;
 
       const currentGroups = topic.get('content.details.allowed_groups');
       if (currentGroups && currentGroups.length) {

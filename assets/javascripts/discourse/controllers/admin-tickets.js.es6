@@ -2,16 +2,19 @@ import { observes, default as discourseComputed } from 'discourse-common/utils/d
 import { generateValueMap } from '../lib/ticket-utilities';
 import { ajax } from 'discourse/lib/ajax';
 import { generateSelectKitContent } from '../lib/ticket-utilities';
+import Controller from "@ember/controller";
+import { A } from "@ember/array";
+import { alias, equal } from "@ember/object/computed";
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   queryParams: ['order', 'filters'],
-  filterFields: generateSelectKitContent(Ember.A(['tag', 'status', 'priority', 'reason', 'assigned'])),
+  filterFields: generateSelectKitContent(A(['tag', 'status', 'priority', 'reason', 'assigned'])),
   order: null,
   asc: true,
-  currentFilters: Ember.A(),
+  currentFilters: A(),
   page: 0,
-  pageStart: Ember.computed.alias('offset'),
-  previousDisabled: Ember.computed.equal('page', 0),
+  pageStart: alias('offset'),
+  previousDisabled: equal('page', 0),
 
   @discourseComputed('page', 'totalPages')
   nextDisabled(page, totalPages) {
