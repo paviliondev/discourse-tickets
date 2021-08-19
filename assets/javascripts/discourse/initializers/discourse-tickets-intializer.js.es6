@@ -1,5 +1,5 @@
 import { withPluginApi } from 'discourse/lib/plugin-api';
-import { default as computed } from 'ember-addons/ember-computed-decorators';
+import { default as discourseComputed } from 'discourse-common/utils/decorators';
 import { escapeExpression } from "discourse/lib/utilities";
 import { isTicketTag, ticketTagGroup } from '../lib/ticket-utilities';
 
@@ -19,12 +19,12 @@ export default {
           return content;
         },
 
-        @computed("tags")
+        @discourseComputed("tags")
         selection(tags) {
           return this._super(tags).filter((t) => !isTicketTag(t.value));
         },
 
-        @computed("tags.[]", "filter", "highlightedSelection.[]")
+        @discourseComputed("tags.[]", "filter", "highlightedSelection.[]")
         collectionHeader(tags, filter, highlightedSelection) {
           if (!Ember.isEmpty(tags)) {
             let output = "";
