@@ -1,4 +1,4 @@
-zh-CN:
+zh-TW:
   site_settings:
     errors:
       tickets_enabled_requires_tagging: "Tagging has to be enabled to enable tickets."
