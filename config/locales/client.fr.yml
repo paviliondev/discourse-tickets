@@ -7,11 +7,9 @@ fr:
       reason: "Raison"
       include: "Comprend"
       include_placeholder: "Utilisateurs ou groupes"
-
       topic:
         is_ticket: "Billet"
         select: "Sélectionnez un {{type}}"
-
       dashboard_table:
         page:
           label: "Billets"
