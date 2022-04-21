@@ -1,8 +1,8 @@
 pt:
   site_settings:
     errors:
-      tickets_enabled_requires_tagging: "Tagging has to be enabled to enable tickets."
-    tickets_enabled: "Enable tickets on topics? (requires tagging to be enabled)."
-    tickets_icon: "FontAwesome class of tickets icon."
-    tickets_include_group: "Name of group to include on all private messages with tickets."
-    tickets_redirect_assigned: "Redirect user assigned routes to ticket dashboard."
+      tickets_enabled_requires_tagging: "Tags devem ser ativadas para habilitar tickets."
+    tickets_enabled: "Habilitar tickets em tópicos? (requer que tags sejam ativas)."
+    tickets_icon: "FontAwesome classe de ícones para tickets."
+    tickets_include_group: "Nome do grupo a incluir em todas as mensagens particulares com tickets."
+    tickets_redirect_assigned: "Redirecionar rotas atribuídas pelo usuário ao Painel do Ticket."
