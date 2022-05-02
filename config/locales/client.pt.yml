@@ -2,24 +2,24 @@ pt:
   js:
     tickets:
       nav_button_title: "Tickets"
-      priority: "Priority"
-      status: "Status"
-      reason: "Reason"
-      include: "Include"
-      include_placeholder: "Users or Groups"
+      priority: "Prioridade"
+      status: "Estados"
+      reason: "Motivo"
+      include: "Incluir"
+      include_placeholder: "Usuários ou Grupos"
       topic:
         is_ticket: "Ticket"
-        select: "Select a {{type}}"
+        select: "Selecione um {{type}}"
       dashboard_table:
         page:
           label: "Tickets"
-          next: "Next"
-          previous: "Previous"
+          next: "Próximo"
+          previous: "Anterior"
         filter:
-          field: "Select a field"
-          value: "Select a value"
-          apply: "Apply"
+          field: "Selecione um campo"
+          value: "Selecione um valor"
+          apply: "Aplicar"
         headings:
-          title: "Title"
-          due_date: "Due Date"
-          assigned: "Assigned"
+          title: "Título"
+          due_date: "Data de vencimento"
+          assigned: "Atribuído"
