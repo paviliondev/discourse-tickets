@@ -44,7 +44,10 @@ after_initialize do
         ticket_tag_ids = Tag.joins('JOIN tag_group_memberships ON tags.id = tag_group_memberships.tag_id')
           .joins('JOIN tag_groups ON tag_group_memberships.tag_group_id = tag_groups.id')
           .where('tag_groups.name in (?)', Tickets::Tag::GROUPS).pluck(:id)
-        result = result.select { |tag| ticket_tag_ids.exclude? tag.id }
+
+        tags_with_counts = opts[:with_context] ? result.first : result
+        tags_with_counts = tags_with_counts.select { |tag| ticket_tag_ids.exclude? tag.id }
+        result = opts[:with_context] ? [tags_with_counts, result.second] : tags_with_counts
       end
 
       result
