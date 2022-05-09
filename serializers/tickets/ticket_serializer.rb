@@ -26,11 +26,11 @@ class Tickets::TicketSerializer < ::ApplicationSerializer
   end
 
   def assigned
-    ::BasicUserSerializer.new(object.assigned_to_user, root: 'user').as_json
+    ::BasicUserSerializer.new(object.assigned_to, root: 'user').as_json
   end
 
   def include_assigned?
-    object.respond_to?(:assigned_to_user) && object.assigned_to_user.present?
+    object.respond_to?(:assigned_to) && object.assigned_to.present?
   end
 
   private

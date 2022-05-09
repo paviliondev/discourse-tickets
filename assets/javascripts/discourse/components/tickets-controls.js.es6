@@ -5,6 +5,7 @@ import { ajax } from 'discourse/lib/ajax';
 import { generateSelectKitContent } from '../lib/ticket-utilities';
 import Component from "@ember/component";
 import { not } from "@ember/object/computed";
+import { inject as service } from "@ember/service";
 
 const ticketTypes = ['priority', 'status', 'reason'];
 
@@ -13,6 +14,7 @@ export default Component.extend({
   notTicket: not('topic.is_ticket'),
   includeUsernames: null,
   hasGroups: null,
+  taskActions: service(),
 
   didInsertElement() {
     this.setup();
@@ -134,21 +136,11 @@ export default Component.extend({
     },
 
     unassign(){
-      this.set('topic.assigned_to_user', null);
-
-      return ajax("/assign/unassign", {
-        type: 'PUT',
-        data: { topic_id: this.get('topic.id')}
-      });
+      this.taskActions.unassign(this.get('topic.id'), 'Topic');
     },
 
     assign(){
-      showModal("assign-user", {
-        model: {
-          topic: this.get('topic'),
-          username: this.get('topic.assigned_to_user.username')
-        }
-      });
+      this.taskActions.assign(this.get('topic'));
     },
 
     updateIncludeUsernames(selected, content) {

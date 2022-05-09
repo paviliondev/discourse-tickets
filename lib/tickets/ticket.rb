@@ -27,10 +27,9 @@ module Tickets
                ) = ?", "#{f[:value]}")
           when 'assigned'
             topics = topics.where("id IN (
-              SELECT topic_id FROM topic_custom_fields
-              WHERE topic_custom_fields.name = 'assigned_to_id' AND
-              topic_custom_fields.value IN (
-                SELECT id::text FROM users
+              SELECT topic_id FROM assignments
+              WHERE assignments.assigned_to_id IN (
+                SELECT id FROM users
                 WHERE users.username LIKE ?
               )
             )", "%#{f[:value]}%")
@@ -66,9 +65,8 @@ module Tickets
                     )
                    )"
         when 'assigned'
-          order = "(SELECT value FROM topic_custom_fields
-                    WHERE topics.id = topic_custom_fields.topic_id
-                    AND topic_custom_fields.name = 'assigned_to_id'
+          order = "(SELECT assigned_to_id FROM assignments
+                    WHERE topics.id = assignments.topic_id
                    )"
         else
           order = 'created_at'
