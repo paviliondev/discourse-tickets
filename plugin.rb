@@ -1,8 +1,9 @@
 # name: discourse-tickets
 # about: Tickets system for Discourse
 # version: 0.1
-# authors:
+# authors: Angus McLeod
 # url: https://github.com/angusmcleod/discourse-tickets
+# contact_emails: development@pavilion.tech
 
 enabled_site_setting :tickets_enabled
 
@@ -39,7 +40,7 @@ after_initialize do
   module DiscourseTaggingExtension
     def filter_allowed_tags(guardian, opts = {})
       result = super(guardian, opts)
-      
+
       if opts[:for_input]
         ticket_tag_ids = Tag.joins('JOIN tag_group_memberships ON tags.id = tag_group_memberships.tag_id')
           .joins('JOIN tag_groups ON tag_group_memberships.tag_group_id = tag_groups.id')
