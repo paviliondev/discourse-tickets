@@ -43,14 +43,14 @@
 </div>
 
 {{#conditional-loading-spinner condition=refreshing}}
-  <table class='table users-list'>
+  <table class='grid'>
     <thead>
-      {{table-header-toggle field="title" labelKey='tickets.dashboard_table.headings.title' order=order asc=asc automatic=true}}
-      {{table-header-toggle field="tags" labelKey='tagging.tags' order=order asc=asc automatic=true}}
-      {{table-header-toggle field="status" labelKey='tickets.status' order=order asc=asc automatic=true}}
-      {{table-header-toggle field="priority" labelKey='tickets.priority' order=order asc=asc automatic=true}}
-      {{table-header-toggle field="reason" labelKey="tickets.reason" order=order asc=asc automatic=true}}
-      {{table-header-toggle field="assigned" labelKey="tickets.dashboard_table.headings.assigned" order=order asc=asc automatic=true}}
+      {{table-header-toggle tagName="th" field="title" labelKey='tickets.dashboard_table.headings.title' order=order asc=asc automatic=true}}
+      {{table-header-toggle tagName="th" field="tags" labelKey='tagging.tags' order=order asc=asc automatic=true}}
+      {{table-header-toggle tagName="th" field="status" labelKey='tickets.status' order=order asc=asc automatic=true}}
+      {{table-header-toggle tagName="th" field="priority" labelKey='tickets.priority' order=order asc=asc automatic=true}}
+      {{table-header-toggle tagName="th" field="reason" labelKey="tickets.reason" order=order asc=asc automatic=true}}
+      {{table-header-toggle tagName="th" field="assigned" labelKey="tickets.dashboard_table.headings.assigned" order=order asc=asc automatic=true}}
     </thead>
     <tbody>
       {{#each tickets as |ticket|}}
