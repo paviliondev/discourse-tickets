@@ -1,8 +1,8 @@
 # name: discourse-tickets
 # about: Tickets system for Discourse
-# version: 0.1
-# authors: Angus McLeod
-# url: https://github.com/angusmcleod/discourse-tickets
+# version: 0.2
+# authors: Pavilion
+# url: https://github.com/paviliondev/discourse-tickets
 # contact_emails: development@pavilion.tech
 
 enabled_site_setting :tickets_enabled
