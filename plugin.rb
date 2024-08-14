@@ -61,5 +61,4 @@ after_initialize do
   end
 
   add_to_serializer(:site, :ticket_tags) { ::Site.ticket_tags }
-  add_to_serializer(:site, :include_ticket_tags?) { SiteSetting.tickets_enabled }
 end
