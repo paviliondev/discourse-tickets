@@ -93,11 +93,12 @@ export default {
       });
 
       if (siteSettings.assign_enabled) {
-        api.modifyClass('route:user-activity-assigned', {
-          redirect() {
+        api.modifyClass('route:userActivity:assigned', {
+          afterModel: function(model, transition) {
+            this._super(model, transition);
             if (siteSettings.tickets_redirect_assigned) {
               const username = this.modelFor("user").get("username_lower");
-              this.replaceWith('adminTickets', {
+              this.router.replaceWith('adminTickets', {
                 queryParams: {
                   filters: `assigned:${username}`
                 }
@@ -106,11 +107,12 @@ export default {
           }
         });
 
-        api.modifyClass('route:user-private-messages-assigned', {
-          redirect() {
+        api.modifyClass('route:userPrivateMessages:assigned', {
+          afterModel: function(model, transition) {
+            this._super(model, transition);
             if (siteSettings.tickets_redirect_assigned) {
               const username = this.modelFor("user").get("username_lower");
-              this.replaceWith('adminTickets', {
+              this.router.replaceWith('adminTickets', {
                 queryParams: {
                   filters: `assigned:${username}`
                 }
