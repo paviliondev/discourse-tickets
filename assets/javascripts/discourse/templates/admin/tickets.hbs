@@ -10,13 +10,13 @@
       value=filterValue
       none='tickets.dashboard_table.filter.value'
     }}
-    {{d-button action='applyFilter' label='tickets.dashboard_table.filter.apply'}}
+    {{d-button action=(action "applyFilter") label='tickets.dashboard_table.filter.apply'}}
   </div>
   <div class="filters">
     {{#each currentFilters as |filter|}}
       <div class="filter">
         <span>{{filter.field}}: {{filter.value}}</span>
-        {{d-button action='removeFilter' actionParam=filter icon='times'}}
+        {{d-button action=(action "removeFilter") actionParam=filter icon='times'}}
       </div>
     {{/each}}
   </div>
@@ -32,12 +32,12 @@
     {{/if}}
   </div>
   <div class="controls">
-    {{d-button action='previousPage' label='tickets.dashboard_table.page.previous'disabled=previousDisabled}}
-    {{d-button action='nextPage' label='tickets.dashboard_table.page.next' disabled=nextDisabled}}
+    {{d-button action=(action "previousPage") label='tickets.dashboard_table.page.previous'disabled=previousDisabled}}
+    {{d-button action=(action "nextPage") label='tickets.dashboard_table.page.next' disabled=nextDisabled}}
   </div>
   <div class="page-list">
     {{#each pages as |p|}}
-      {{d-button translatedLabel=p.number action='goToPage' actionParam=p.number class=p.classes}}
+      {{d-button translatedLabel=p.number action=(action "goToPage") actionParam=p.number class=p.classes}}
     {{/each}}
   </div>
 </div>

@@ -14,6 +14,7 @@ export default {
 
     withPluginApi('0.8.13', api => {
       api.modifyClass('component:mini-tag-chooser', {
+        pluginId: 'discourse-tickets',
         willComputeAsyncContent(content) {
           // forbidden tickets are added manually, so we remove them manually
           if (content && content[0] && isTicketTag(content[0].id)) {
@@ -93,11 +94,13 @@ export default {
       });
 
       if (siteSettings.assign_enabled) {
-        api.modifyClass('route:user-activity-assigned', {
-          redirect() {
+        api.modifyClass('route:userActivity:assigned', {
+          pluginId: 'discourse-tickets',
+          afterModel: function(model, transition) {
+            this._super(model, transition);
             if (siteSettings.tickets_redirect_assigned) {
               const username = this.modelFor("user").get("username_lower");
-              this.replaceWith('adminTickets', {
+              this.router.replaceWith('adminTickets', {
                 queryParams: {
                   filters: `assigned:${username}`
                 }
@@ -106,11 +109,13 @@ export default {
           }
         });
 
-        api.modifyClass('route:user-private-messages-assigned', {
-          redirect() {
+        api.modifyClass('route:userPrivateMessages:assigned', {
+          pluginId: 'discourse-tickets',
+          afterModel: function(model, transition) {
+            this._super(model, transition);
             if (siteSettings.tickets_redirect_assigned) {
               const username = this.modelFor("user").get("username_lower");
-              this.replaceWith('adminTickets', {
+              this.router.replaceWith('adminTickets', {
                 queryParams: {
                   filters: `assigned:${username}`
                 }
